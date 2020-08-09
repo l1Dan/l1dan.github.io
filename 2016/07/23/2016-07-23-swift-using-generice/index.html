@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"yoursite.com","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="定义泛型是程序设计语言的一种特性。它能够根据使用者自定义的需求编写出适用于任意类型并且灵活可复用的组件。使用泛型可以避免代码的重复编写，可以使代码更加清晰，能让使用者的想象发挥到极致。泛型是Swift的一个重要的特性，在Swift标准库中也大量运用了这个特性。比如我们经常使用的字典Dictionary&lt;Key : Hashable, Value&gt;还有数组Array&lt;Element">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Swift泛型">
+<meta property="og:url" content="http://yoursite.com/2016/07/23/2016-07-23-swift-using-generice/index.html">
+<meta property="og:site_name" content="Leo&#39;s blog">
+<meta property="og:description" content="定义泛型是程序设计语言的一种特性。它能够根据使用者自定义的需求编写出适用于任意类型并且灵活可复用的组件。使用泛型可以避免代码的重复编写，可以使代码更加清晰，能让使用者的想象发挥到极致。泛型是Swift的一个重要的特性，在Swift标准库中也大量运用了这个特性。比如我们经常使用的字典Dictionary&lt;Key : Hashable, Value&gt;还有数组Array&lt;Element">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2016-07-23T10:27:03.000Z">
+<meta property="article:modified_time" content="2020-08-09T13:01:32.587Z">
+<meta property="article:author" content="李丹(l1dan@hotmail.com)">
+<meta property="article:tag" content="Swift">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="http://yoursite.com/2016/07/23/2016-07-23-swift-using-generice/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Swift泛型 | Leo's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">Leo's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">日常记录，坐标深圳</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/l1Dan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2016/07/23/2016-07-23-swift-using-generice/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
+      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="Leo's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Swift泛型
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2016-07-23 18:27:03" itemprop="dateCreated datePublished" datetime="2016-07-23T18:27:03+08:00">2016-07-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 21:01:32" itemprop="dateModified" datetime="2020-08-09T21:01:32+08:00">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2016/07/23/2016-07-23-swift-using-generice/" class="post-meta-item leancloud_visitors" data-flag-title="Swift泛型" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2016/07/23/2016-07-23-swift-using-generice/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2016/07/23/2016-07-23-swift-using-generice/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>泛型是程序设计语言的一种特性。它能够根据使用者自定义的需求编写出适用于任意类型并且灵活可复用的组件。使用泛型可以避免代码的重复编写，可以使代码更加清晰，能让使用者的想象发挥到极致。泛型是<code>Swift</code>的一个重要的特性，在<code>Swift</code>标准库中也大量运用了这个特性。比如我们经常使用的字典<code>Dictionary&lt;Key : Hashable, Value&gt;</code>还有数组<code>Array&lt;Element&gt;</code>，你可以使用任意类型来创建字典和数组，这就是泛型强大之处。</p>
+<a id="more"></a>
+
+<h3 id="泛型与Any-AnyObject区别"><a href="#泛型与Any-AnyObject区别" class="headerlink" title="泛型与Any AnyObject区别"></a>泛型与<code>Any AnyObject</code>区别</h3><p>泛型根据我个人的理解其实就是一个未知类型、一个占位类型，只不过这种类型会经过Swift类型系统的严格检查，但是又不会去查找这种类型的真实类型，只有当函数调用的时候才会替换为真实类型。其实在Swift类型系统中还有几种类似泛型的<code>东西</code>–<code>Any</code>和<code>AnyObject</code>，Apple官方对其的解释是：<code>Any</code>可以表示任意类型，而<code>AnyObject</code>可以表示任意实体。Swift的安全特性一直都是Apple煽动开发者的一大亮点，那么<code>Any</code>和<code>AnyObject</code>是什么鬼？其实这是因为历史原因而导致Swift妥协的产物。这里我们暂且不讨论<code>Any</code>和<code>AnyObject</code>的区别，总之尽量不要使用这两个家伙，因为他们会避开Swift类型系统的检查，Swift类型系统是我们好朋友我们不应该欺骗她。</p>
+<h4 id="避免重复-amp-函数泛型化"><a href="#避免重复-amp-函数泛型化" class="headerlink" title="避免重复&amp;函数泛型化"></a>避免重复&amp;函数泛型化</h4><p>需求：交换两个值。我们用一个交换值的例子来引入泛型的概念。如果编写一个不使用泛型来交换两个值会是怎么样的呢？大概就是下面这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoInts</span><span class="params">(<span class="number">_</span> some: <span class="keyword">inout</span> Int, <span class="number">_</span> other: <span class="keyword">inout</span> Int)</span></span> &#123; (some, other) = (other, some) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoStrings</span><span class="params">(<span class="keyword">inout</span> someString: String, <span class="keyword">inout</span> anotherString: String)</span></span> &#123; (someString, anotherString) = (anotherString, someString) &#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>上面两种写法是非常痛苦的。假如还有<code>Double，Array...</code>呢？可能你会说我可以拷贝一份改一下入参不就可以了吗。如果你喜欢这么做我也不会反对，但是在所有编程准则里始终都应该要牢记一条原则：<code>不要重复自己(Don&#39;t Repeat Yourself，DRY)</code>,这是编程最基本的原则。所以我们还是考虑下否要优化这段代码。交换两个值的函数本该非常具有通用性，他们唯一不同的只是传入参数的类型。我们只要将入参用占位符替换就可以将函数写成一个非常具有通用型的泛型函数，这个函数类型替换的过程称之为：<code>函数泛型化</code>。假设我和你的想法是一致，那么应该会是下面这样的：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoValues</span>&lt;T&gt;<span class="params">(<span class="number">_</span> v1: <span class="keyword">inout</span> T, <span class="number">_</span> v2: <span class="keyword">inout</span> T)</span></span> &#123; (v1, v2) = (v2, v1) &#125;</span><br></pre></td></tr></table></figure>
+<p>看起来没什么区别，唯一不同的是实际类型被<code>T</code>替换，这里的<code>T</code>是占位符，你可以根据自己的喜好而定，一般用<code>T</code>，<code>U</code>，<code>V</code>来标识类型占位符。<code>T</code>占位符不关心将来传入参数的类型。但是两者的传入参数必须保持一致，换句话说<code>v1</code>和<code>v2</code>类型必须是<code>T</code>。<code>inout</code>关键字说明传入的参数是一个地址。现在的<code>swapTwoValues(_:_:)</code>函数可以交换任意同一类型的两个值了，你甚至可以用这个泛型函数来定义上面两个非泛型函数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoInts</span><span class="params">(<span class="number">_</span> some: <span class="keyword">inout</span> Int, <span class="number">_</span> other: <span class="keyword">inout</span> Int)</span></span> &#123; swapTwoValues(&amp;some, &amp;other) &#125;</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">swapTwoStrings</span><span class="params">(<span class="number">_</span> some: <span class="keyword">inout</span> String, <span class="number">_</span> other: <span class="keyword">inout</span> String)</span></span> &#123; swapTwoValues(&amp;some, &amp;other) &#125;</span><br></pre></td></tr></table></figure>
+<p>其实可以直接使用在Swift标准库中已经定义好的<code>swap(_:_:)</code>函数。这里并不建议定义自己的<code>swap(_:_:)</code>函数(<code>不要重复发明轮子</code>)，为的仅仅是方便引入泛型的概念。</p>
+<h4 id="类型泛型化"><a href="#类型泛型化" class="headerlink" title="类型泛型化"></a>类型泛型化</h4><p>Swift是一门静态类型化语言。也就是说Swift编译器是非常清楚地知道正在处理的是什么类型，并不会像动态语言具有灵活型。这种严格的特性意味着失去了一定的灵活性。这时候泛型就该出场了。像字典<code>Dictionary&lt;Key : Hashable, Value&gt;</code>和<code>Array&lt;Element&gt;</code>就是类型泛型化的结果。创建泛型类型只需要这样<code>Tree&lt;T&gt;</code>就可以定义一个泛型<code>Tree</code>类型。我一般习惯用<code>T</code>来标识占位符。下面我们就以泛型对象<code>Tree&lt;T&gt;</code>为例:</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">struct</span> <span class="title">Tree</span>&lt;<span class="title">T</span>&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> value: <span class="type">T</span></span><br><span class="line">    <span class="keyword">var</span> children = [<span class="type">Tree</span>&lt;<span class="type">T</span>&gt;]()</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">init</span>(<span class="number">_</span> value: <span class="type">T</span>) &#123; <span class="keyword">self</span>.value = value &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">addChildren</span><span class="params">(<span class="number">_</span> value: T)</span></span> -&gt; <span class="type">Tree</span> &#123;</span><br><span class="line">        <span class="keyword">let</span> newChild = <span class="type">Tree</span>(value)</span><br><span class="line">        children.append(newChild)</span><br><span class="line">        <span class="keyword">return</span> newChild</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦定义了泛型类型，就可以由它来创建一个具体类型的非泛型类型。例如创建一个<code>Int</code>类型和<code>String</code>类型版本：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> integerTree = <span class="type">Tree</span>(<span class="number">5</span>)</span><br><span class="line">integerTree.addChildren(<span class="number">12</span>)</span><br><span class="line"><span class="keyword">var</span> stringTree = <span class="type">Tree</span>(<span class="string">&quot;Hello&quot;</span>)</span><br><span class="line">stringTree.addChildren(<span class="string">&quot;World&quot;</span>)</span><br></pre></td></tr></table></figure>
+<p>在使用<code>Tree</code>类型时你甚至可以不用写类似<code>Tree&lt;Int&gt; Tree&lt;String&gt;</code>的代码，这是因为Swift可以从初始化的条件判断出<code>Tree</code>的真实类型。添加<code>addChildren(_:)</code>方法会改变结构体内部成员<code>children</code>，所以需要加上关键字<code>mutating</code>，好处就是当你看到这个结构体时会提醒你哪些地方是会被改变的，再一个就是如果想要在初始化完毕之后改变结构体内部的成员，那么就必须要在调用方法前面加上<code>mutating</code>关键字，否则无法编译通过。</p>
+<h3 id="泛型扩展"><a href="#泛型扩展" class="headerlink" title="泛型扩展"></a>泛型扩展</h3><p>有时候我们需要为泛型类型扩充一些函数，使得泛型类型的功能更加强大，更加符合我们需求。当然这也是拒绝写重复代码的途径之一。在泛型类型中已经存在占位符，所以我们就不需要在扩展中重复定义占位符(<code>类型参数名</code>)，就算定义不一样的类型参数名也是不行的，Swift扩展中是不允许这么做的。如果我们希望<code>Tree&lt;T&gt;</code>拥有移除最后一个元素的方法，那么可以这么定义：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Tree</span> </span>&#123;</span><br><span class="line">    <span class="keyword">mutating</span> <span class="function"><span class="keyword">func</span> <span class="title">removeLast</span><span class="params">()</span></span> -&gt; <span class="type">Tree</span>&lt;<span class="type">T</span>&gt; &#123; <span class="keyword">return</span> children.removeLast() &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">func</span> <span class="title">printDescription</span>&lt;U: CustomStringConvertible&gt;<span class="params">(input: U?)</span></span> -&gt; <span class="type">String</span> &#123;</span><br><span class="line">        <span class="keyword">guard</span> <span class="keyword">let</span> input = input <span class="keyword">else</span> &#123; <span class="keyword">return</span> <span class="string">&quot;empty description.&quot;</span>&#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;\(input.description)description&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>removeLast() -&gt; Tree&lt;T&gt;</code>函数移除最后一个元素，并将<code>Tree&lt;T&gt;</code>返回，这里的<code>T</code>使用的就是在定义泛型类型时所使用的的类型参数名。可以看到在方法中我们没有重新定义类型参数名<code>T</code>，直接使用的是本类中的类型参数名。如果你想这么<code>extension Tree&lt;T&gt;</code>定义的话是会报错的。</p>
+<h3 id="类型约束-amp-语法"><a href="#类型约束-amp-语法" class="headerlink" title="类型约束&amp;语法"></a>类型约束&amp;语法</h3><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 语法</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">someFunction</span>&lt;T: SomeClass, U: SomeProtocol&gt;<span class="params">(someT: T, someU: U)</span></span>&#123;</span><br><span class="line">    statements</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>泛型包括的范围非常广泛，当需要限制泛型的使用范围时就可以使用类型约束。前面的<code>printDescription</code>函数中<code>input</code>的值就遵循<code>CustomStringConvertible</code>协议，意味着传入参数一定会有<code>description</code>方法。所以才可以使用<code>input</code>的<code>input.description</code>方法。在<code>someFunction(_:_:)</code>中<code>T</code>类型必须是SomeClass类或子类，<code>U</code>类型必须是遵循SomeProtocol协议类型。</p>
+<h3 id="关联类型"><a href="#关联类型" class="headerlink" title="关联类型"></a>关联类型</h3><p>关联类型可以通过<code>associatedtype</code>关键字来定义，关联类型其实就是一个类型参数名。尤其是在声明协议的时候可以为一个或多个关联类型，来为协议中的某个类型提供类型参数名。我们可以认为带有关联类型的协议是<code>泛型协议</code>。</p>
+<h4 id="关联类型实践"><a href="#关联类型实践" class="headerlink" title="关联类型实践"></a>关联类型实践</h4><figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">protocol</span> <span class="title">Extensible</span> </span>&#123;</span><br><span class="line">    <span class="keyword">associatedtype</span> <span class="type">Element</span></span><br><span class="line">    <span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Element</span> &#123; <span class="keyword">get</span> &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里定义了一个可扩展协议<code>Extensible</code>，任何类型只要采纳这个协议，就必须提供协议中声明的全部实现，也就是要实现<code>subscript(_:)</code>方法。协议中我们只要求声明方法，具体实现交给采纳协议者。协议中关联类型<code>Element</code>的实际类型我们同样不需要关心。看个例子，比如<code>Tree</code>采纳这个协议：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">extension</span> <span class="title">Tree</span>: <span class="title">Extensible</span> </span>&#123;</span><br><span class="line">    <span class="keyword">subscript</span>(i: <span class="type">Int</span>) -&gt; <span class="type">Tree</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> children[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>协议中<code>Element</code>最终会变成实现者的类型，也就是<code>Tree</code>类型，不能在实现者中使用关联类型。</p>
+<h3 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h3><p>这篇文章中写的大部分都是对泛型编程的讨论。泛型编程可以编写出高质量、简洁、优雅、稳定…的代码，就这诱人的几点还只是泛型编程的冰山一角，想要了解更多还需要我们继续深入挖掘，其实她就在那里等着有一天被你发现。谢谢大家，祝玩得开心！</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Swift/" rel="tag"># Swift</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2016/06/16/2016-06-16-swift-using-closure/" rel="prev" title="Swift闭包">
+      <i class="fa fa-chevron-left"></i> Swift闭包
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2017/05/01/2017-05-01-xcode-run-script/" rel="next" title="利用Shell和Xcode做些有趣的事">
+      利用Shell和Xcode做些有趣的事 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89"><span class="nav-number">1.</span> <span class="nav-text">定义</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E4%B8%8EAny-AnyObject%E5%8C%BA%E5%88%AB"><span class="nav-number">2.</span> <span class="nav-text">泛型与Any AnyObject区别</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%81%BF%E5%85%8D%E9%87%8D%E5%A4%8D-amp-%E5%87%BD%E6%95%B0%E6%B3%9B%E5%9E%8B%E5%8C%96"><span class="nav-number">2.1.</span> <span class="nav-text">避免重复&amp;函数泛型化</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E6%B3%9B%E5%9E%8B%E5%8C%96"><span class="nav-number">2.2.</span> <span class="nav-text">类型泛型化</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B3%9B%E5%9E%8B%E6%89%A9%E5%B1%95"><span class="nav-number">3.</span> <span class="nav-text">泛型扩展</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%B1%BB%E5%9E%8B%E7%BA%A6%E6%9D%9F-amp-%E8%AF%AD%E6%B3%95"><span class="nav-number">4.</span> <span class="nav-text">类型约束&amp;语法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B"><span class="nav-number">5.</span> <span class="nav-text">关联类型</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%85%B3%E8%81%94%E7%B1%BB%E5%9E%8B%E5%AE%9E%E8%B7%B5"><span class="nav-number">5.1.</span> <span class="nav-text">关联类型实践</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name">李丹(l1dan@hotmail.com)</p>
+  <div class="site-description" itemprop="description">帮助自己成长，如有不对还望斧正。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/l1Dan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;l1Dan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l1Dan@hotmail.com" title="E-Mail → mailto:l1Dan@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李丹(l1dan@hotmail.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Of0luUUTAuJkW9h7x78FM3cm-MdYXbMMI',
+      appKey     : 'n9h1cNSngrgulr82NcWmlUTo',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
