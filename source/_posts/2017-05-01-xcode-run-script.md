@@ -47,8 +47,8 @@ xcrun agvtool new-version -all
 [2]:	https://developer.apple.com/library/content/qa/qa1827/_index.html
 [3]:	https://github.com/jkpang/PPAutoPackageScript
 
-[image-1]:	/images/xcode-run-script-header.png
-[image-2]:	/images/xcode-run-script-step.png
-[image-3]:	/images/xcode-run-script-bash.png
-[image-4]:	/images/xcode-run-script-version.png
-[image-5]:	/images/xcode-run-script-info.png
+[image-1]:	/images/2017/xcode-run-script-header.png
+[image-2]:	/images/2017/xcode-run-script-step.png
+[image-3]:	/images/2017/xcode-run-script-bash.png
+[image-4]:	/images/2017/xcode-run-script-version.png
+[image-5]:	/images/2017/xcode-run-script-info.png
