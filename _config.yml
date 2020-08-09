@@ -15,7 +15,7 @@ timezone: ''
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://l1dan.gitee.io/blog
+url: https://l1dan.gitee.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -107,8 +107,8 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://gitee.com/l1dan/blog.git
-  branch: master
+  repo: https://gitee.com/l1dan/l1dan.git
+  branch: gitee-pages
   message: "Updated：博客更新"
   name: lidan
   email: l1dan@hotmail.com
