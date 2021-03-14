@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
 <meta name="theme-color" content="#222">
-<meta name="generator" content="Hexo 5.0.0">
+<meta name="generator" content="Hexo 5.4.0">
   <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
   <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
   <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
@@ -244,7 +244,7 @@
         <p><img src="/images/2017/xcode-run-script-header.png" alt="image1"></p>
 <p>Shell 在计算机里的作用是用来提供使用</p>
 <p>Xcode Run Script 里面的脚本代码的作用时机是在Build期间。在这期间我们到底可以做些什么呢？这就需要我们各自发挥自己的想象力了，这里就拿几个实用的例子看下效果。</p>
-<a id="more"></a>
+<span id="more"></span>
 
 <h3 id="动态修改Bundle资源"><a href="#动态修改Bundle资源" class="headerlink" title="动态修改Bundle资源"></a>动态修改Bundle资源</h3><p>在Xcode中经常会看到第三方的SDK用中Bundle包来对资源进行统一的管理（大多数是对图片的管理）。使用这些第三发库，那么他们的Bundle包也是会打包进我们的App中的。而这些Bundle包我们一般是不做修改的，但是我们需要修改Bundle包的话那将是一件比较麻烦的事。一种方法就是手动将我们定制的资源拷贝的别人的Bundle包中进行加载。一旦这些库需要更新那么之前手动拷贝的志愿就有可能会存在丢失的情况，如果需要经常更新第三方库那么这种方法是不可取的。Bundle包的本质就是一个真实存在的文件夹。那么对Bundle的操作其实就是跟文件夹的操作一样。这里可以使用 Xcode 自带执行脚本的功能来完成对文件夹操作的麻烦事。</p>
 <h3 id="添加一个运行脚本的选项"><a href="#添加一个运行脚本的选项" class="headerlink" title="添加一个运行脚本的选项"></a>添加一个运行脚本的选项</h3><p><img src="/images/2017/xcode-run-script-step.png" alt="image2"></p>
@@ -400,7 +400,7 @@
 <div class="copyright">
   
   &copy; 2016 – 
-  <span itemprop="copyrightYear">2020</span>
+  <span itemprop="copyrightYear">2021</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
