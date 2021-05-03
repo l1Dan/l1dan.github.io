@@ -21,30 +21,33 @@
     var CONFIG = {"hostname":"l1dan.gitee.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="帮助自己成长，如有不对还望斧正。">
-<meta property="og:type" content="website">
-<meta property="og:title" content="l1Dan&#39;s blog">
-<meta property="og:url" content="https://l1dan.gitee.io/index.html">
+  <meta name="description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。 介绍以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：  Objective-C 编程语言 Cocoa 入门指南 Cocoa 编码规范 Apple Developer 技术指南  目录 可空">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C 样式指南">
+<meta property="og:url" content="https://l1dan.gitee.io/2021/05/03/2021-05-03-apple-objective-c-style-guide/index.html">
 <meta property="og:site_name" content="l1Dan&#39;s blog">
-<meta property="og:description" content="帮助自己成长，如有不对还望斧正。">
+<meta property="og:description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。 介绍以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：  Objective-C 编程语言 Cocoa 入门指南 Cocoa 编码规范 Apple Developer 技术指南  目录 可空">
 <meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-05-03T03:21:56.000Z">
+<meta property="article:modified_time" content="2021-05-03T03:21:40.405Z">
 <meta property="article:author" content="李丹(l1dan@hotmail.com)">
+<meta property="article:tag" content="Objective-C">
 <meta name="twitter:card" content="summary">
 
-<link rel="canonical" href="https://l1dan.gitee.io/">
+<link rel="canonical" href="https://l1dan.gitee.io/2021/05/03/2021-05-03-apple-objective-c-style-guide/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome : true,
-    isPost : false,
+    isHome : false,
+    isPost : true,
     lang   : 'zh-CN'
   };
 </script>
 
-  <title>l1Dan's blog</title>
+  <title>Objective-C 样式指南 | l1Dan's blog</title>
   
 
 
@@ -151,12 +154,13 @@
         <div class="content-wrap">
           
 
-          <div class="content index posts-expand">
+          <div class="content post posts-expand">
             
-      
+
+    
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2021/05/03/2021-05-03-apple-objective-c-style-guide/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -169,10 +173,9 @@
       <meta itemprop="name" content="l1Dan's blog">
     </span>
       <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2021/05/03/2021-05-03-apple-objective-c-style-guide/" class="post-title-link" itemprop="url">Objective-C 样式指南</a>
-        </h2>
+        <h1 class="post-title" itemprop="name headline">
+          Objective-C 样式指南
+        </h1>
 
         <div class="post-meta">
             <span class="post-meta-item">
@@ -226,7 +229,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="Objective-C-样式指南"><a href="#Objective-C-样式指南" class="headerlink" title="Objective-C 样式指南"></a>Objective-C 样式指南</h1><p>本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。</p>
+        <h1 id="Objective-C-样式指南"><a href="#Objective-C-样式指南" class="headerlink" title="Objective-C 样式指南"></a>Objective-C 样式指南</h1><p>本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。</p>
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html">Objective-C 编程语言</a></li>
@@ -563,652 +566,40 @@
 <h2 id="Xcode-项目"><a href="#Xcode-项目" class="headerlink" title="Xcode 项目"></a>Xcode 项目</h2><p>如果条件允许，请<strong>始终</strong>在 Target 的 “Build Settings” 中打开 “Treat Warnings as Errors”「GCC_TREAT_WARNINGS_AS_ERRORS」，并启用尽可能多的其他警告。如果您需要忽略特定警告，请使用 <a target="_blank" rel="noopener" href="http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas">Clang’s pragma feature</a>。</p>
 <h2 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h2><p><strong>始终</strong>启用 clang-format 插件格式化代码。</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目根目录下执行命令</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-files-in-repo.sh&quot;</span> <span class="comment"># 格式化整个项目</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-files.sh -s&quot;</span> <span class="comment"># 提交代码时格式化所有不符合规范的文件</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-file.sh &#123;#FILEPATH&#125;&quot;</span> <span class="comment"># 提交代码时格式化单个不符合规范的文件</span></span><br></pre></td></tr></table></figure>
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
+          <div class="post-tags">
+              <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          </div>
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2020/08/01/2020-08-01-install-software-in-archlinux/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
-      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="l1Dan's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/01/2020-08-01-install-software-in-archlinux/" class="post-title-link" itemprop="url">Arch Linux 软件安装</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-01 18:06:56" itemprop="dateCreated datePublished" datetime="2020-08-01T18:06:56+08:00">2020-08-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 22:55:28" itemprop="dateModified" datetime="2020-08-09T22:55:28+08:00">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">系统</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/08/01/2020-08-01-install-software-in-archlinux/" class="post-meta-item leancloud_visitors" data-flag-title="Arch Linux 软件安装" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/08/01/2020-08-01-install-software-in-archlinux/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/08/01/2020-08-01-install-software-in-archlinux/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="安装软件篇"><a href="#安装软件篇" class="headerlink" title="安装软件篇"></a>安装软件篇</h1><h2 id="一、安装系统软件"><a href="#一、安装系统软件" class="headerlink" title="一、安装系统软件"></a>一、安装系统软件</h2><p>进入之后会发现两个问题：</p>
-<ol>
-<li>终端模拟器没有，通过 <code>sudo pacmam -S Konsole</code> 安装</li>
-<li>桌面无法正常缩放（VirtualBox 需要），通过 <code>sudo pacman -S virtualbox-guest-utils</code> 安装。</li>
-</ol>
-<p>这个时候还会发现，要执行命令，就需终端模拟器，要安装终端模拟器就需要执行安装<code>sudo pacmam -S Konsole</code>命令，这就陷入死循环了，那么怎么办？<br>办法1：在安装桌面套件是随便把终端模拟器安装了，但是现在已经没办法安装了。<br>办法2：重新安装一边系统，记得把终端模拟器安装了（不可取）。<br>办法3：使用 Archiso 镜像进入安装系统流程，挂载 /mnt 之后安装终端模拟器（费劲）。<br>办法4：UEFI启动界面时进入字符界面安装终端模拟器（也费劲）。<br>办法5：<br>    1. 在现在启动的图形桌面环境下按 <code>Ctrl+Alt+F3</code> 组合安装进入字符终端。<br>    2. 执行 <code>sudo pacman -Syyu</code> 更新<br>    2. 执行 <code>sudo pacmam -S Konsole</code> 命令。<br>    3. 按下 Ctrl+Alt+F1 回到图形界面。完成安装。</p>
-<h3 id="记得安装-vbox-工具（VirtualBox-需要）"><a href="#记得安装-vbox-工具（VirtualBox-需要）" class="headerlink" title="记得安装 vbox 工具（VirtualBox 需要）"></a>记得安装 vbox 工具（VirtualBox 需要）</h3><p><code>sudo pacman -S virtualbox-guest-utils</code></p>
-<p>查看 boxservice.service 服务是否启动<br><code>systemctl list-unit-files | grep vbox</code> 如果第一项为 disable 则执行如下命令：<br>    1. <code>sudo systemctl enable vboxservice.service</code> 启用 vbox 服务<br>    2. <code>reboot</code> 重启就可以使用了。</p>
-<h3 id="一个很重要的软件！！！"><a href="#一个很重要的软件！！！" class="headerlink" title="一个很重要的软件！！！"></a>一个很重要的软件！！！</h3><p>接下来我们安装一个很重要的软件执行如下命令：<br>    1. <code>sudo pacman -S screenfetch</code><br>    2. screenfetch</p>
-<p>相信你们看到什么了，没错就是下面这样的，没别的意思，就是想显摆下，满足下虚荣心。好了，装逼装完了，继续安装软件。</p>
-<h3 id="文件管理器"><a href="#文件管理器" class="headerlink" title="文件管理器"></a>文件管理器</h3><p>如果你一步一步跟到这里了，可能还没发现一个问题，就是竟然没找到文件管理器。安装Dolphin文件管理：<br><code>sudo pacman -S dolphin</code></p>
-<h3 id="文件夹"><a href="#文件夹" class="headerlink" title="文件夹"></a>文件夹</h3><p>进入 Dolphin 会发现很多默认文件夹都没有，需要自己生成默认文件夹：<br>    1. <code>sudo pacman -S xdg-user-dirs</code><br>    2. <code>sudo xdg-user-dirs-update</code><br>    3. <code>reboot</code> 重启之后打开 Dolphin 就可以看到默认文件夹了</p>
-<h3 id="安装软件图标主题（可选安装）"><a href="#安装软件图标主题（可选安装）" class="headerlink" title="安装软件图标主题（可选安装）"></a>安装软件图标主题（可选安装）</h3><p>如果看腻了原生的图标，也可以安装一套自己喜欢的图标，配合 KDE 的深色模式食用更佳。<br><code>sudo pacman -S papirus-icon-theme</code></p>
-<h2 id="二、安装常用桌面软件"><a href="#二、安装常用桌面软件" class="headerlink" title="二、安装常用桌面软件"></a>二、安装常用桌面软件</h2><h3 id="配置国内源"><a href="#配置国内源" class="headerlink" title="配置国内源"></a>配置国内源</h3>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2020/07/25/2020-07-25-install-archlinux-in-virtualbox/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
-      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="l1Dan's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/07/25/2020-07-25-install-archlinux-in-virtualbox/" class="post-title-link" itemprop="url">VirtualBox 安装最新 Arch Linux</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-07-25 10:06:56" itemprop="dateCreated datePublished" datetime="2020-07-25T10:06:56+08:00">2020-07-25</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 23:38:04" itemprop="dateModified" datetime="2020-08-09T23:38:04+08:00">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E7%B3%BB%E7%BB%9F/" itemprop="url" rel="index"><span itemprop="name">系统</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2020/07/25/2020-07-25-install-archlinux-in-virtualbox/" class="post-meta-item leancloud_visitors" data-flag-title="VirtualBox 安装最新 Arch Linux" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2020/07/25/2020-07-25-install-archlinux-in-virtualbox/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2020/07/25/2020-07-25-install-archlinux-in-virtualbox/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id=""><a href="#" class="headerlink" title=""></a><img src="/images/2020/13-archlinux-logo.png"></h2><h1 id="安装系统篇"><a href="#安装系统篇" class="headerlink" title="安装系统篇"></a>安装系统篇</h1><h2 id="一、准备安装环境"><a href="#一、准备安装环境" class="headerlink" title="一、准备安装环境"></a>一、准备安装环境</h2><ul>
-<li>Wi-Fi 或 有线网络（保证 VritualBox 可以正常联网）</li>
-<li>macOS 10.15.6</li>
-<li><a target="_blank" rel="noopener" href="https://www.virtualbox.org/wiki/Downloads">下载 VirtualBox 和 Oracle VM VirtualBox Extension Pack</a></li>
-<li><a target="_blank" rel="noopener" href="https://www.archlinux.org/download/">下载 Arch Linux ISO 文件</a></li>
-</ul>
-<p><strong>注意</strong>：在 VirtualBox 新建虚拟机需要打开 EFI 选项<br>   <code>Settings -&gt; System -&gt; Motherboard 勾选 Extended Features Enable EFI (special OSes only)</code><br>   <img src="/images/2020/01-settings-uefi.png"></p>
-<h2 id="二、预备安装"><a href="#二、预备安装" class="headerlink" title="二、预备安装"></a>二、预备安装</h2><h3 id="验证启动模式"><a href="#验证启动模式" class="headerlink" title="验证启动模式"></a>验证启动模式</h3><p>Archiso 使用 systemd-boot 和 syslinux 分别在 UEFI模式 和 BIOS 模式下启动。<br>要验证启动模式，可以使用下列命令列出 efivars 目录：</p>
-<p><code>ls /sys/firmware/efi/efivars</code></p>
-<p>如果没有出错且显示了目录，则系统以 UEFI 模式启动。反之，则系统可以是以 BIOS 模式或其他模式启动。</p>
-<p><em>提示：在 (Like) Linux 或 (Like) Unix 系统下 SHELL 环境的命令可以使用 <code>Tab</code> 按键补全。</em><br><strong>注意</strong>：这里是选择 UEFI 启动模式安装的，如果上述命令出错，请检查虚拟机 EFI 设置是否有问题。</p>
-<h3 id="连接到网络"><a href="#连接到网络" class="headerlink" title="连接到网络"></a>连接到网络</h3><ol>
-<li>使用 <code>ip link</code> 命令检查系统是否启用了网络接口。</li>
-<li>有线网络插上网线就可以（VritualBox 可以跳过）。</li>
-<li>Wi-Fi 网络使用 <code>iwctl</code> 验证无线网络（VritualBox 可以跳过）。</li>
-<li>使用 Ping 检查网络连接 <code>ping -c 3 archlinux.org</code>。</li>
-</ol>
-<p><strong>注意：</strong> Archiso 安装镜像默认是已经启用 <code>systemd-network.service</code>、<code>systemd-resolved.service</code> 和 <code>iwd.service</code>。所以这里的网络设置可以跳过，但是后面安装好的系统这些工具是没有的，需要自己安装和配置。</p>
-<h3 id="更新系统时间"><a href="#更新系统时间" class="headerlink" title="更新系统时间"></a>更新系统时间</h3><p><code>timedatectl set-ntp true</code><br>检查服务状态 <code>timedatectl status</code>。</p>
-<h3 id="建立硬盘分区"><a href="#建立硬盘分区" class="headerlink" title="建立硬盘分区"></a>建立硬盘分区</h3><p>这里采用 <code>parted</code> 命令分区和 UEFI 分区方案。<br>查看当前磁盘信息有几种方式：</p>
-<ol>
-<li><code>lsblk</code> 2. <code>parted /dev/sda print</code> 3. <code>fdisk -l /dev/sda</code></li>
-</ol>
-<h3 id="开始分区"><a href="#开始分区" class="headerlink" title="开始分区"></a>开始分区</h3><p>分区方案是：boot = 200Mib，swap ～= 8G，root ～= 22G，剩下的分给 home 分区。下面是分区步骤：</p>
-<ol>
-<li><code>parted /dev/sda</code> 进入分区模式。</li>
-<li><code>mktable gpt</code> 采用 <code>gpt</code> 分区表（存放引导文件）。</li>
-<li><code>mkpart boot fat32 1M 200M</code> 建立 <code>boot</code> 分区。</li>
-<li><code>mkpart swap linux-swap 200M 8G</code> 建立 <code>swap</code> 分区（如果实体机采用固态硬盘+ &gt;= 8G RAM 方式可以不用建立 swap 分区）。</li>
-<li><code>mkpart root ext4 8G 30G</code> 建立 <code>root</code> 分区。</li>
-<li><code>mkpart home ext4 30G 100%</code> 建立 <code>home</code> 分区（100% 表示使用所有剩下的可用空间）。</li>
-<li><code>print</code> 查看分区信息是否正确。</li>
-<li><code>quit</code> 退出分区模式。</li>
-</ol>
-<h3 id="格式化分区"><a href="#格式化分区" class="headerlink" title="格式化分区"></a>格式化分区</h3><ol>
-<li><code>mkfs.fat -F32 /dev/sda1</code> 格式化 boot 分区。</li>
-<li><code>mkswap /dev/sda2</code> 格式化 swap 分区。</li>
-<li><code>mkfs.ext4 /dev/sda3</code> 格式化 root 分区。</li>
-<li><code>mkfs.ext4 /dev/sda4</code> 格式化 home 分区。</li>
-</ol>
-<h3 id="挂在分区"><a href="#挂在分区" class="headerlink" title="挂在分区"></a>挂在分区</h3><ol>
-<li><code>mount /dev/sda3 /mnt</code> 首先挂载 root 分区。</li>
-<li><code>mkdir /mnt/efi &amp;&amp; mount /dev/sda1 /mnt/efi</code> 创建 efi 文件夹并挂载 boot 分区。</li>
-<li><code>mkdir /mnt/home &amp;&amp; mount /dev/sda4 /mnt/home</code> 创建 home 文件夹并挂载 home 分区。</li>
-</ol>
-<h2 id="三、系统安装"><a href="#三、系统安装" class="headerlink" title="三、系统安装"></a>三、系统安装</h2><h3 id="选择镜像源"><a href="#选择镜像源" class="headerlink" title="选择镜像源"></a>选择镜像源</h3><p>Archiso Live 系统会自动执行 <code>reflector</code> 命令来帮你选择镜像源，所以选择镜像源这一步可以直接跳过。<br>刷新源 <code>pacman -Syy</code></p>
-<h3 id="安装必须软件包"><a href="#安装必须软件包" class="headerlink" title="安装必须软件包"></a>安装必须软件包</h3><p><code>pacstrap /mnt base linux linux-firmware</code> 使用 <code>pacstrap</code> 脚本安装基础软件包和硬件固件。</p>
-<h3 id="配置系统"><a href="#配置系统" class="headerlink" title="配置系统"></a>配置系统</h3><p>使用以下命令生成 fstab 文件。</p>
-<p><code>genfstab -U /mnt &gt;&gt; /mnt/etc/fstab</code></p>
-<p>查看配置是否正确。</p>
-<p><code>cat /mnt/etc/fstab</code></p>
-<h3 id="进入刚刚安装的系统"><a href="#进入刚刚安装的系统" class="headerlink" title="进入刚刚安装的系统"></a>进入刚刚安装的系统</h3><p><code>arch-chroot /mnt</code></p>
-<h3 id="时区"><a href="#时区" class="headerlink" title="时区"></a>时区</h3><ol>
-<li><code>ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</code> 设置时区。</li>
-<li><code>hwclock --systohc</code> 设置硬件时间。</li>
-<li><code>date</code> 查看日期时间是否正确。</li>
-</ol>
-<h3 id="安装文本编辑器（新系统默认没有任何编辑器）"><a href="#安装文本编辑器（新系统默认没有任何编辑器）" class="headerlink" title="安装文本编辑器（新系统默认没有任何编辑器）"></a>安装文本编辑器（新系统默认没有任何编辑器）</h3><p>pacman -S vim</p>
-<p><em>提示：Vim 基本操作。</em><br><code>vim /path/file.ext</code>  进入编辑指定文件。<br>查找操作：normal 模式下输入 <code>/</code> 后面输入查找字符。<br>删除光标所在的字符或单词：<code>dw</code>。<br>进入编辑模式：<code>i</code>。<br>退出编辑模式：<code>esc</code>。<br>撤销上一步操作：<code>u</code>。<br>退出 Vim 并保存文件：<code>wq</code>。<br>强制退出，不做任何操作：<code>q!</code>。</p>
-<h3 id="本地化设置"><a href="#本地化设置" class="headerlink" title="本地化设置"></a>本地化设置</h3><ol>
-<li>使用 <code>vim /etc/locale.gen</code>，将 <code>/etc/locale.gen</code> 中 <code>en_US.UTF-8</code> 和 <code>zh_CN.UTF-8</code> 的注释去掉。</li>
-<li><code>locale-gen</code> 生成 locale 信息。</li>
-<li>使用 <code>vim /etc/locale.conf</code>，在文件 <code>/etc/locale.conf </code> 中写入 <code>LANG=en_US.UTF-8</code> 配置</li>
-</ol>
-<p><strong>注意：</strong> </p>
-<ol>
-<li>不要在 <code>/etc/locale.conf</code> 文件中配置为中文 locale，会导致 TTY 乱码。</li>
-<li>可以在 <code>/etc/locale.conf</code> 中添加 <code>LANGUAGE=en_US:en_GB:en</code> 配置。</li>
-</ol>
-<h3 id="网络配置"><a href="#网络配置" class="headerlink" title="网络配置"></a>网络配置</h3><p>创建 hostname 文件并设置主机名<br><code>echo myhostname &gt; /etc/hostname</code></p>
-<p>配置 hosts 文件</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vim &#x2F;etc&#x2F;hosts</span><br><span class="line"></span><br><span class="line"># 输入以下内容</span><br><span class="line">127.0.0.1	localhost</span><br><span class="line">::1			localhost</span><br><span class="line">127.0.1.1	myhostname.localdomain.myhostname</span><br></pre></td></tr></table></figure>
-
-<p><strong>注意</strong>：<code>myhostname</code> 设置为你喜欢的名字。</p>
-<h3 id="设置-Root-密码"><a href="#设置-Root-密码" class="headerlink" title="设置 Root 密码"></a>设置 Root 密码</h3><p><code>password</code> 设置 root 用户密码。</p>
-<h3 id="创建新用户"><a href="#创建新用户" class="headerlink" title="创建新用户"></a>创建新用户</h3><p>添加用户 useradd -m -g “初始组” -G “附加组” -s “登陆shell” “用户”<br>将新建用户移入wheel组并指定shell为zsh (以后可修改)</p>
-<ol>
-<li><code>pacman -S zsh</code> 安装 zsh (Arch Linux 默认就是使用 zsh)。</li>
-<li>useradd -m -G wheel -s /bin/bash username 创建一个名为 username 的新用户。</li>
-<li>password username 设置用户名为 username 的密码。</li>
-</ol>
-<h3 id="添加管理员权限"><a href="#添加管理员权限" class="headerlink" title="添加管理员权限"></a>添加管理员权限</h3><ol>
-<li><code>pacman -S sudo</code> 安装 sudo 命令，会自动生成 sudoers 文件。</li>
-<li>将文 件/etc/sudoers 中的 <code>%wheel ALL=(ALL) ALL</code> 前面的注释去掉。</li>
-</ol>
-<p><em>提示：</em> 如果 <code>/etc/sudoers</code> 文件为只读默认，无法修改的话可以做以下操作：</p>
-<ol>
-<li><code>chmod +w /etc/sudoers</code> 将文件添加一个可写的权限。</li>
-<li><code>vim /etc/sudoers</code> 修改文件。</li>
-<li><code>chmod 0440 /etc/sudoers</code> 还原会原来的自读权限。</li>
-</ol>
-<h3 id="安装和配置-UEFI-引导系统"><a href="#安装和配置-UEFI-引导系统" class="headerlink" title="安装和配置 UEFI 引导系统"></a>安装和配置 UEFI 引导系统</h3><ol>
-<li><code>pacman -S grub efibootmgr</code></li>
-<li>执行以下命令：<br><code>grub-install --target=x86_64-efi --efi-directory=/efi --bootloader-id=ArchLinux</code></li>
-<li>使用生成grub配置文件：<br><code>grub-mkconfig -o /boot/grub/grub.cfg</code></li>
-</ol>
-<p><em>其实到这里就可以进入系统了，但是为了避免后面麻烦，还需要安装一些额外的软件工具。</em></p>
-<h2 id="四、配置桌面环境"><a href="#四、配置桌面环境" class="headerlink" title="四、配置桌面环境"></a>四、配置桌面环境</h2><h3 id="安装网络相关工具"><a href="#安装网络相关工具" class="headerlink" title="安装网络相关工具"></a>安装网络相关工具</h3><ol>
-<li><code>pacman -S iwd wpa_supplicant dialog networkmanager dhcpcd</code></li>
-<li>启动服务 <code>systemctl enable NetworkManager &amp;&amp; systemctl enable dhcpcd</code></li>
-</ol>
-<h3 id="安装声音相关软件包"><a href="#安装声音相关软件包" class="headerlink" title="安装声音相关软件包"></a>安装声音相关软件包</h3><p><code>pacman -S alsa-utils pulseaudio pulseaudio-alsa</code></p>
-<h3 id="安装字体"><a href="#安装字体" class="headerlink" title="安装字体"></a>安装字体</h3><p><code>pacman -S ttf-dejavu wqy-microhei</code></p>
-<h3 id="安装桌面套件"><a href="#安装桌面套件" class="headerlink" title="安装桌面套件"></a>安装桌面套件</h3><ol>
-<li><code>pacman -S xorg</code> 安装 Xorg</li>
-<li><code>pacman -S plasma</code> 安装桌面（不要安装 kde-applications，太多不需要的软件，后面可以自己选装。）</li>
-<li><code>systemctl enable sddm</code> 激活登陆窗口 sddm。</li>
-</ol>
-<h3 id="重启系统，进入桌面环境"><a href="#重启系统，进入桌面环境" class="headerlink" title="重启系统，进入桌面环境"></a>重启系统，进入桌面环境</h3><ol>
-<li><code>exit</code> 退出到 Archiso 镜像安装 SHELL 界面。</li>
-<li><code>umount -R /mnt</code> 卸载 /mnt</li>
-<li><code>reboot</code> 重启系统</li>
-</ol>
-<h2 id="完结"><a href="#完结" class="headerlink" title="完结"></a>完结</h2><p>Arch Linux 系统的安装基本就完成了，接下来就是系统基本配置和常用软件的安装了，可以看下一篇，常用软件的安装。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2017/05/01/2017-05-01-xcode-run-script/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
-      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="l1Dan's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2017/05/01/2017-05-01-xcode-run-script/" class="post-title-link" itemprop="url">利用Shell和Xcode做些有趣的事</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2017-05-01 18:06:56" itemprop="dateCreated datePublished" datetime="2017-05-01T18:06:56+08:00">2017-05-01</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 23:28:26" itemprop="dateModified" datetime="2020-08-09T23:28:26+08:00">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9D%82%E8%B0%88/" itemprop="url" rel="index"><span itemprop="name">杂谈</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2017/05/01/2017-05-01-xcode-run-script/" class="post-meta-item leancloud_visitors" data-flag-title="利用Shell和Xcode做些有趣的事" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2017/05/01/2017-05-01-xcode-run-script/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2017/05/01/2017-05-01-xcode-run-script/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/2017/xcode-run-script-header.png" alt="image1"></p>
-<p>Shell 在计算机里的作用是用来提供使用</p>
-<p>Xcode Run Script 里面的脚本代码的作用时机是在Build期间。在这期间我们到底可以做些什么呢？这就需要我们各自发挥自己的想象力了，这里就拿几个实用的例子看下效果。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2017/05/01/2017-05-01-xcode-run-script/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
-    </div>
 
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2016/07/23/2016-07-23-swift-using-generice/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
-      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="l1Dan's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/07/23/2016-07-23-swift-using-generice/" class="post-title-link" itemprop="url">Swift泛型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-07-23 18:27:03" itemprop="dateCreated datePublished" datetime="2016-07-23T18:27:03+08:00">2016-07-23</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 21:44:58" itemprop="dateModified" datetime="2020-08-09T21:44:58+08:00">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2016/07/23/2016-07-23-swift-using-generice/" class="post-meta-item leancloud_visitors" data-flag-title="Swift泛型" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2016/07/23/2016-07-23-swift-using-generice/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2016/07/23/2016-07-23-swift-using-generice/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><p>泛型是程序设计语言的一种特性。它能够根据使用者自定义的需求编写出适用于任意类型并且灵活可复用的组件。使用泛型可以避免代码的重复编写，可以使代码更加清晰，能让使用者的想象发挥到极致。泛型是<code>Swift</code>的一个重要的特性，在<code>Swift</code>标准库中也大量运用了这个特性。比如我们经常使用的字典<code>Dictionary&lt;Key : Hashable, Value&gt;</code>还有数组<code>Array&lt;Element&gt;</code>，你可以使用任意类型来创建字典和数组，这就是泛型强大之处。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/07/23/2016-07-23-swift-using-generice/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
         
-      
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/01/2020-08-01-install-software-in-archlinux/" rel="prev" title="Arch Linux 软件安装">
+      <i class="fa fa-chevron-left"></i> Arch Linux 软件安装
+    </a></div>
+      <div class="post-nav-item"></div>
     </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
       </footer>
+    
   </article>
   
   
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN,en,default">
-    <link itemprop="mainEntityOfPage" href="https://l1dan.gitee.io/2016/06/16/2016-06-16-swift-using-closure/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.jpeg">
-      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
-      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="l1Dan's blog">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2016/06/16/2016-06-16-swift-using-closure/" class="post-title-link" itemprop="url">Swift闭包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2016-06-16 23:11:24" itemprop="dateCreated datePublished" datetime="2016-06-16T23:11:24+08:00">2016-06-16</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2016-10-30 19:51:00" itemprop="dateModified" datetime="2016-10-30T19:51:00+08:00">2016-10-30</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
-                </span>
-            </span>
-
-          
-            <span id="/2016/06/16/2016-06-16-swift-using-closure/" class="post-meta-item leancloud_visitors" data-flag-title="Swift闭包" title="阅读次数">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-eye"></i>
-              </span>
-              <span class="post-meta-item-text">阅读次数：</span>
-              <span class="leancloud-visitors-count"></span>
-            </span>
-  
-  <span class="post-meta-item">
-    
-      <span class="post-meta-item-icon">
-        <i class="far fa-comment"></i>
-      </span>
-      <span class="post-meta-item-text">Valine：</span>
-    
-    <a title="valine" href="/2016/06/16/2016-06-16-swift-using-closure/#valine-comments" itemprop="discussionUrl">
-      <span class="post-comments-count valine-comment-count" data-xid="/2016/06/16/2016-06-16-swift-using-closure/" itemprop="commentCount"></span>
-    </a>
-  </span>
-  
-  
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <!-- 这里的日期要注意不能大于今天 -->
-
-<h3 id="概念"><a href="#概念" class="headerlink" title="概念"></a>概念</h3><p>闭包是自包含的函数代码块，可以在代码中被传递和使用。闭包可以捕获和存储其所在上下文中任意常量和变量的引用。这就是所谓的闭合并包裹着这些常量和变量，俗称闭包。</p>
-          <!--noindex-->
-            <div class="post-button">
-              <a class="btn" href="/2016/06/16/2016-06-16-swift-using-closure/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          <!--/noindex-->
-        
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-
   
 
 
 
           </div>
           
+    <div class="comments" id="valine-comments"></div>
 
 <script>
   window.addEventListener('tabs:register', () => {
@@ -1255,6 +646,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Objective-C-%E6%A0%B7%E5%BC%8F%E6%8C%87%E5%8D%97"><span class="nav-number">1.</span> <span class="nav-text">Objective-C 样式指南</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.1.</span> <span class="nav-text">介绍</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%9B%AE%E5%BD%95"><span class="nav-number">1.2.</span> <span class="nav-text">目录</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8F%AF%E7%A9%BA%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">可空性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%82%B9%E8%AF%AD%E6%B3%95"><span class="nav-number">1.4.</span> <span class="nav-text">点语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%AE%BD%E5%BA%A6%E9%99%90%E5%88%B6"><span class="nav-number">1.5.</span> <span class="nav-text">代码宽度限制</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E7%BB%84%E7%BB%87"><span class="nav-number">1.6.</span> <span class="nav-text">代码组织</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E7%99%BD-amp-%E7%BC%A9%E8%BF%9B"><span class="nav-number">1.7.</span> <span class="nav-text">空白 &amp; 缩进</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8B%AC%E5%8F%B7"><span class="nav-number">1.8.</span> <span class="nav-text">括号</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9D%A1%E4%BB%B6%E8%AF%AD%E5%8F%A5"><span class="nav-number">1.9.</span> <span class="nav-text">条件语句</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E7%9B%AE%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="nav-number">1.10.</span> <span class="nav-text">三目运算符</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%94%99%E8%AF%AF%E5%A4%84%E7%90%86"><span class="nav-number">1.11.</span> <span class="nav-text">错误处理</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%96%B9%E6%B3%95"><span class="nav-number">1.12.</span> <span class="nav-text">方法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9E%9A%E4%B8%BE"><span class="nav-number">1.13.</span> <span class="nav-text">枚举</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7"><span class="nav-number">1.14.</span> <span class="nav-text">属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%91%BD%E5%90%8D"><span class="nav-number">1.15.</span> <span class="nav-text">命名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%8B%E5%88%92%E7%BA%BF"><span class="nav-number">1.16.</span> <span class="nav-text">下划线</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E9%87%8A"><span class="nav-number">1.17.</span> <span class="nav-text">注释</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%96%87%E6%A1%A3%E6%B3%A8%E9%87%8A"><span class="nav-number">1.17.1.</span> <span class="nav-text">文档注释</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%8F%E8%AE%AE"><span class="nav-number">1.18.</span> <span class="nav-text">协议</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#init-and-dealloc"><span class="nav-number">1.19.</span> <span class="nav-text">init and dealloc</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#instancetype-vs-id"><span class="nav-number">1.20.</span> <span class="nav-text">instancetype vs id</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#alloc-init-vs-new"><span class="nav-number">1.21.</span> <span class="nav-text">alloc-init vs new</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E9%9D%A2%E9%87%8F"><span class="nav-number">1.22.</span> <span class="nav-text">字面量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CGRect-%E5%87%BD%E6%95%B0"><span class="nav-number">1.23.</span> <span class="nav-text">CGRect 函数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E9%87%8F"><span class="nav-number">1.24.</span> <span class="nav-text">常量</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E5%B1%9E%E6%80%A7"><span class="nav-number">1.25.</span> <span class="nav-text">私有属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A7%81%E6%9C%89%E5%A4%B4%E6%96%87%E4%BB%B6"><span class="nav-number">1.26.</span> <span class="nav-text">私有头文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%83%E5%B0%94%E5%80%BC"><span class="nav-number">1.27.</span> <span class="nav-text">布尔值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%9D%97"><span class="nav-number">1.28.</span> <span class="nav-text">代码块</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8D%95%E4%BE%8B"><span class="nav-number">1.29.</span> <span class="nav-text">单例</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Xcode-%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.30.</span> <span class="nav-text">Xcode 项目</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E6%A0%BC%E5%BC%8F%E5%8C%96"><span class="nav-number">1.31.</span> <span class="nav-text">代码格式化</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
