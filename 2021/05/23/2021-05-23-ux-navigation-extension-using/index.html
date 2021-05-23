@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon-logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"l1dan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="🔥 UXNavigationExtension 是为 iOS 应用设计的一个简单、易用的导航栏处理框架。框架对现有代码入侵非常小，只需要简单的几个方法调用就可以满足大部分的应用场景。UXNavigationExtension 和 示例程序代码 都已经适配暗黑模式（Dark Mode）。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Objective-C 样式指南">
+<meta property="og:url" content="https://l1dan.github.io/2021/05/23/2021-05-23-ux-navigation-extension-using/index.html">
+<meta property="og:site_name" content="l1Dan&#39;s blog">
+<meta property="og:description" content="🔥 UXNavigationExtension 是为 iOS 应用设计的一个简单、易用的导航栏处理框架。框架对现有代码入侵非常小，只需要简单的几个方法调用就可以满足大部分的应用场景。UXNavigationExtension 和 示例程序代码 都已经适配暗黑模式（Dark Mode）。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://raw.githubusercontent.com/l1Dan/UXNavigationExtension/master/Snapshots/Slogan.png">
+<meta property="og:image" content="https://raw.githubusercontent.com/l1Dan/UXNavigationExtension/master/Snapshots/Preview.png">
+<meta property="article:published_time" content="2021-05-23T15:21:56.000Z">
+<meta property="article:modified_time" content="2021-05-23T18:42:55.070Z">
+<meta property="article:author" content="李丹(l1dan@hotmail.com)">
+<meta property="article:tag" content="Objective-C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://raw.githubusercontent.com/l1Dan/UXNavigationExtension/master/Snapshots/Slogan.png">
+
+<link rel="canonical" href="https://l1dan.github.io/2021/05/23/2021-05-23-ux-navigation-extension-using/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>Objective-C 样式指南 | l1Dan's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">l1Dan's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">日常记录，坐标深圳</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/l1Dan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://l1dan.github.io/2021/05/23/2021-05-23-ux-navigation-extension-using/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
+      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="l1Dan's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Objective-C 样式指南
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-05-23 23:21:56" itemprop="dateCreated datePublished" datetime="2021-05-23T23:21:56+08:00">2021-05-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-05-24 02:42:55" itemprop="dateModified" datetime="2021-05-24T02:42:55+08:00">2021-05-24</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/05/23/2021-05-23-ux-navigation-extension-using/" class="post-meta-item leancloud_visitors" data-flag-title="Objective-C 样式指南" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/05/23/2021-05-23-ux-navigation-extension-using/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/05/23/2021-05-23-ux-navigation-extension-using/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p align="center" >
+  <img src="https://raw.githubusercontent.com/l1Dan/UXNavigationExtension/master/Snapshots/Slogan.png" alt="UXNavigationExtension" title="UXNavigationExtension">
+</p>
+
+<p>🔥 UXNavigationExtension 是为 iOS 应用设计的一个简单、易用的导航栏处理框架。框架对现有代码入侵非常小，只需要简单的几个方法调用就可以满足大部分的应用场景。UXNavigationExtension 和 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/archive/master.zip">示例程序代码</a> 都已经适配暗黑模式（Dark Mode）。</p>
+<span id="more"></span>
+
+<h2 id="🎉-预览"><a href="#🎉-预览" class="headerlink" title="🎉 预览"></a>🎉 预览</h2><p><img src="https://raw.githubusercontent.com/l1Dan/UXNavigationExtension/master/Snapshots/Preview.png" alt="Preview"></p>
+<h2 id="🌟-开始使用"><a href="#🌟-开始使用" class="headerlink" title="🌟 开始使用"></a>🌟 开始使用</h2><p>下载 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/archive/master.zip">UXNavigationExtension</a> 示例程序代码。</p>
+<h2 id="使用-CocoaPods-安装"><a href="#使用-CocoaPods-安装" class="headerlink" title="使用 CocoaPods 安装"></a>使用 CocoaPods 安装</h2><p>使用 CocoaPods 将 UXNavigationExtension 集成到 Xcode 项目中，需要在 <code>Podfile</code> 中指定：</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">&#x27;UXNavigationExtension&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pod <span class="string">&#x27;UXNavigationExtension&#x27;</span>, ~&gt; <span class="number">3.0</span>.<span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Carthage-安装"><a href="#使用-Carthage-安装" class="headerlink" title="使用 Carthage 安装"></a>使用 Carthage 安装</h3><p><a target="_blank" rel="noopener" href="https://github.com/Carthage/Carthage">Carthage</a> 是一个去中心化的包管理器，它构建依赖项并为您提供二进制框架。 要集成 UXNavigationExtension，请将以下内容添加到您的 <code>Cartfile</code> 文件中：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github &quot;l1Dan&#x2F;UXNavigationExtension&quot;</span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">github &quot;l1Dan&#x2F;UXNavigationExtension&quot; ~&gt; 3.0.0</span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Swift-Package-Manager-安装"><a href="#使用-Swift-Package-Manager-安装" class="headerlink" title="使用 Swift Package Manager 安装"></a>使用 Swift Package Manager 安装</h3><p>添加 <code>UXNavigationExtension</code> 依赖库到 <code>Package.swift</code> 的 <code>dependencies</code> 中。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">dependencies: [</span><br><span class="line">    .package(url: <span class="string">&quot;https://github.com/l1Dan/UXNavigationExtension.git&quot;</span>, .upToNextMajor(from: <span class="string">&quot;3.0.0&quot;</span>))</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<h2 id="🌈-要求"><a href="#🌈-要求" class="headerlink" title="🌈 要求"></a>🌈 要求</h2><table>
+<thead>
+<tr>
+<th align="center">UXNavigationExtension Version</th>
+<th align="center">Minimum iOS Target</th>
+<th align="center">Minimum macOS Target</th>
+<th align="center">Minimum watchOS Target</th>
+<th align="center">Minimum tvOS Target</th>
+<th align="center">Notes</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">3.x</td>
+<td align="center">iOS 11</td>
+<td align="center">macOS 10.15</td>
+<td align="center">n/a</td>
+<td align="center">n/a</td>
+<td align="center">macOS: macCatalyst</td>
+</tr>
+<tr>
+<td align="center">2.x</td>
+<td align="center">iOS 11</td>
+<td align="center">macOS 10.15</td>
+<td align="center">n/a</td>
+<td align="center">n/a</td>
+<td align="center">macOS: macCatalyst</td>
+</tr>
+</tbody></table>
+<h2 id="优点"><a href="#优点" class="headerlink" title="优点"></a>优点</h2><ul>
+<li>API 设计通俗易懂，容易上手。</li>
+<li>没有继承关系，所有操作基于方法重写，对项目入侵较小。</li>
+<li>按需注册需要控制的 <code>UINavigationController</code> 子类，不会影响全局外观。</li>
+<li>没有对原生导航栏视图层级进行修改，无需担心升级系统兼容性问题。</li>
+<li>适配 iOS、iPadOS、macOS，Dark Mode。</li>
+<li>支持 CocoaPods、Carthage、SPM（Swift5.x）、Project 方式集成。</li>
+</ul>
+<h2 id="👏-功能"><a href="#👏-功能" class="headerlink" title="👏 功能"></a>👏 功能</h2><p>特别实用的功能，总有一款适合你的项目</p>
+<h3 id="基本功能"><a href="#基本功能" class="headerlink" title="基本功能"></a>基本功能</h3><ul>
+<li>✅<code> 设置导航栏透明</code></li>
+<li>✅<code> 设置导航栏半透明</code></li>
+<li>✅<code> 自定义返回按钮图片</code></li>
+<li>✅<code> 自定义返回按钮</code></li>
+<li>✅<code> 自定义导航栏模糊背景</code></li>
+<li>✅<code> 修改返回按钮箭头颜色</code></li>
+<li>✅<code> 修改导航栏标题颜色</code></li>
+<li>✅<code> 修改导航栏背景颜色</code></li>
+<li>✅<code> 修改导航栏背景图片</code></li>
+<li>✅<code> 修改导航栏底部线条颜色</code></li>
+<li>✅<code> 修改导航栏底部线条颜色图片</code></li>
+</ul>
+<h3 id="高级功能"><a href="#高级功能" class="headerlink" title="高级功能"></a>高级功能</h3><ul>
+<li>✅<code> 禁用滑动返回手势</code></li>
+<li>✅<code> 启用全屏滑动返回手势</code></li>
+<li>✅<code> 导航栏返回事件拦截</code></li>
+<li>✅<code> 重定向任一控制器跳转</code></li>
+<li>✅<code> 导航栏点击事件穿透到底部</code></li>
+<li>✅<code> 动态修改导航栏样式</code></li>
+<li>✅<code> 更新导航栏样式</code></li>
+</ul>
+<h2 id="🍽-使用"><a href="#🍽-使用" class="headerlink" title="🍽 使用"></a>🍽 使用</h2><p>所有对导航栏外观的修改都是基于视图控制器 <code>UIViewController</code> 修改的，而不是基于导航控制器 <code>UINavigationController</code> 修改，这种设计逻辑更加符合实际应用场景。也就是自己所在的导航栏的外观自己管理。</p>
+<ol>
+<li>💉 导入头文件 <code>#import &lt;UXNavigationExtension/UXNavigationExtension.h&gt;</code></li>
+<li>💉 使用之前需要先注册需要修改的导航控制器，以 <code>FeatureNavigationController</code> 为例：</li>
+</ol>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[UXNavigationBar registerStandardAppearanceForNavigationControllerClass:[FeatureNavigationController <span class="keyword">class</span>]];</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：</p>
+<ul>
+<li>👉 使用之前需要先注册导航控制器，注册之后对导航栏的修改才会生效，也仅限于修改注册的导航控制器所管理的视图控制器，对于子类导航控制器所管理的视图控制器是不会生效的，这样可以有效避免框架污染到其他的导航控制器，保持“谁使用，谁注册”的原则。</li>
+<li>🚫 不要直接注册 <code>UINavigationController</code>，这个影响全局导航栏的外观，建议创建一个 <code>UINavigationController</code> 的子类，对这个类进行注册。</li>
+<li>🚫 不要使用系统导航栏隐藏、显示方法, <code>setNavigationBarHidden:</code>、<code>setNavigationBarHidden:animated</code>、<code>setHidden:</code>。</li>
+<li>🚫 不要使用系统导航栏修改透明度。</li>
+<li>🚫 不要使用系统导航栏或导航控制器 <code>appearance</code> 相关属性修改。</li>
+<li>🚫 不要使用全局 <code>edgesForExtendedLayout</code> 修改。</li>
+<li>🚫 不要使用 <code>&lt;UIGestureRecognizerDelegate&gt;</code> 相关方法禁用手势返回。</li>
+<li>💉 一句话“不要直接操作导航栏或者导航控制器，把这些都交给 <code>UXNavigationExtension</code> 处理吧“。</li>
+</ul>
+<p>建议：除非你非常明白修改全局性东西的后果，否则不要修改，这么做的原因就是为了减少走一些弯路！</p>
+<h2 id="🍻-基本功能"><a href="#🍻-基本功能" class="headerlink" title="🍻 基本功能"></a>🍻 基本功能</h2><h3 id="修改返回按钮箭头颜色"><a href="#修改返回按钮箭头颜色" class="headerlink" title="修改返回按钮箭头颜色"></a>修改返回按钮箭头颜色</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController07_ScrollChangeNavigationBar.m">示例代码</a></p>
+<p><strong>导航栏返回按钮颜色默认使用系统蓝色 <code>[UIColor systemBlueColor]</code>，要改变返回按钮颜色可以使用以下方式配合：</strong></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 全局统一修改，不会覆盖基于视图控制器修改</span></span><br><span class="line">UXNavigationBarAppearance.standardAppearance.tintColor = [<span class="built_in">UIColor</span> redColor];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 基于视图控制器修改</span></span><br><span class="line">- (<span class="built_in">UIColor</span> *)ux_barTintColor &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.isDarkMode ? [<span class="built_in">UIColor</span> whiteColor] : [<span class="built_in">UIColor</span> blackColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="修改导航栏标题颜色"><a href="#修改导航栏标题颜色" class="headerlink" title="修改导航栏标题颜色"></a>修改导航栏标题颜色</h2><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController07_ScrollChangeNavigationBar.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSAttributedStringKey</span>,<span class="keyword">id</span>&gt; *)ux_titleTextAttributes &#123;</span><br><span class="line">    <span class="keyword">return</span> @&#123;<span class="built_in">NSForegroundColorAttributeName</span>: [<span class="keyword">self</span> ux_barTintColor]&#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改导航栏背景颜色"><a href="#修改导航栏背景颜色" class="headerlink" title="修改导航栏背景颜色"></a>修改导航栏背景颜色</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController01_BackgroundColor.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIColor</span> *)ux_navigationBarBackgroundColor &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIColor</span> customDarkGrayColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="修改导航栏背景图片"><a href="#修改导航栏背景图片" class="headerlink" title="修改导航栏背景图片"></a>修改导航栏背景图片</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController02_BackgroundImage.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)ux_navigationBarBackgroundImage &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="built_in">UIImage</span>.navigationBarBackgorundImage;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置导航栏透明"><a href="#设置导航栏透明" class="headerlink" title="设置导航栏透明"></a>设置导航栏透明</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController03_Transparent.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIColor</span> *)ux_navigationBarBackgroundColor &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIColor</span> clearColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="设置导航栏半透明"><a href="#设置导航栏半透明" class="headerlink" title="设置导航栏半透明"></a>设置导航栏半透明</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController04_Translucent.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)ux_useSystemBlurNavigationBar &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改导航栏底部线条颜色"><a href="#修改导航栏底部线条颜色" class="headerlink" title="修改导航栏底部线条颜色"></a>修改导航栏底部线条颜色</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController05_ShadowColor.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIColor</span> *)ux_shadowImageTintColor &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改导航栏底部线条颜色图片"><a href="#修改导航栏底部线条颜色图片" class="headerlink" title="修改导航栏底部线条颜色图片"></a>修改导航栏底部线条颜色图片</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController06_ShadowImage.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIColor</span> *)ux_shadowImageTintColor &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIColor</span> redColor];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="修改导航栏底部线条颜色图片-1"><a href="#修改导航栏底部线条颜色图片-1" class="headerlink" title="修改导航栏底部线条颜色图片"></a>修改导航栏底部线条颜色图片</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController06_ShadowImage.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)ux_shadowImage &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;NavigationBarShadowImage&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义返回按钮图片"><a href="#自定义返回按钮图片" class="headerlink" title="自定义返回按钮图片"></a>自定义返回按钮图片</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController07_CustomBackButtonImage.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIImage</span> *)ux_backImage &#123;</span><br><span class="line">    <span class="keyword">return</span> [<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;NavigationBarBack&quot;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="自定义返回按钮"><a href="#自定义返回按钮" class="headerlink" title="自定义返回按钮"></a>自定义返回按钮</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Basic/Controllers/ViewController08_CustomBackButton.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIView</span> *)ux_backButtonCustomView &#123;</span><br><span class="line">    <span class="built_in">UIButton</span> *backButton = [<span class="built_in">UIButton</span> buttonWithType:<span class="built_in">UIButtonTypeCustom</span>];</span><br><span class="line">    [backButton setTitle:<span class="string">@&quot;😋&quot;</span> forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [backButton setImage:[<span class="built_in">UIImage</span> imageNamed:<span class="string">@&quot;NavigationBarBack&quot;</span>] forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    [backButton setTitleColor:<span class="built_in">UIColor</span>.customDarkGrayColor forState:<span class="built_in">UIControlStateNormal</span>];</span><br><span class="line">    <span class="keyword">return</span> backButton;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<hr>
+<h2 id="🍺-高级功能"><a href="#🍺-高级功能" class="headerlink" title="🍺 高级功能"></a>🍺 高级功能</h2><h4 id="禁用滑动返回手势"><a href="#禁用滑动返回手势" class="headerlink" title="禁用滑动返回手势"></a>禁用滑动返回手势</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController01_DisablePopGesture.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)ux_disableInteractivePopGesture &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="启用全屏滑动返回手势"><a href="#启用全屏滑动返回手势" class="headerlink" title="启用全屏滑动返回手势"></a>启用全屏滑动返回手势</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController02_FullPopGesture.m">示例代码</a></p>
+<ul>
+<li>局部有效（在所处页面设置）</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)ux_enableFullScreenInteractivePopGesture &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>全局有效（在注册导航栏之前设置）</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">UXNavigationExtensionFullscreenPopGestureEnable = <span class="literal">YES</span>;</span><br></pre></td></tr></table></figure>
+
+<h4 id="导航栏返回事件拦截"><a href="#导航栏返回事件拦截" class="headerlink" title="导航栏返回事件拦截"></a>导航栏返回事件拦截</h4><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController03_BackEventIntercept.m">示例代码</a></p>
+<p>需要遵守协议 <code>&lt;UINavigationControllerCustomizable&gt;</code>，实现代理方法：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)navigationController:(__kindof <span class="built_in">UINavigationController</span> *)navigationController willPopViewControllerUsingInteractingGesture:(<span class="built_in">BOOL</span>)interactingGesture &#123;</span><br><span class="line">    <span class="comment">// TODO...</span></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>拦截点击返回按钮事件 &amp; 手势返回事件</li>
+<li>拦截点击返回按钮事件</li>
+<li>拦截手势返回事件</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)navigationController:(__kindof <span class="built_in">UINavigationController</span> *)navigationController willPopViewControllerUsingInteractingGesture:(<span class="built_in">BOOL</span>)interactingGesture &#123;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.currentItemType == EventInterceptItemTypeBoth) &#123; <span class="comment">// 拦截点击返回按钮事件 &amp; 手势返回事件</span></span><br><span class="line">        [<span class="keyword">self</span> showAlertController];</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.currentItemType == EventInterceptItemTypeBackButton) &#123; <span class="comment">// 拦截点击返回按钮事件</span></span><br><span class="line">        <span class="keyword">if</span> (!interactingGesture) &#123;</span><br><span class="line">            [<span class="keyword">self</span> showAlertController];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">self</span>.currentItemType == EventInterceptItemTypePopGesture) &#123; <span class="comment">// 拦截手势返回事件</span></span><br><span class="line">        <span class="keyword">if</span> (interactingGesture) &#123;</span><br><span class="line">            [<span class="keyword">self</span> showAlertController];</span><br><span class="line">            <span class="keyword">return</span> <span class="literal">NO</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>自定义返回按钮事件拦截需要调用方法：<code>[self.navigationController ux_triggerSystemBackButtonHandler];</code></p>
+<h3 id="重定向任一控制器跳转"><a href="#重定向任一控制器跳转" class="headerlink" title="重定向任一控制器跳转"></a>重定向任一控制器跳转</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController04_RedirectViewController.m">示例代码</a></p>
+<ul>
+<li>以重定向到 <code>RandomColorViewController</code> 为例，如果之前有 Push 过 <code>RandomColorViewController</code> 的实例，则最后会跳转到实例中，如果没有则会调用 <code>block</code>，如果 <code>block == NULL</code> 或者 <code>return nil;</code> 则重定向跳转不会发生。</li>
+<li>执行重定向操作之后，并不会直接跳转到对应的视图控制器，如果需要 <code>跳转</code> 操作，可以调用 <code>popViewControllerAnimated:</code> 、<code>使用手势返回</code>、<code>点击返回按钮返回</code>。</li>
+</ul>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.navigationController ux_redirectViewControllerClass:[RandomColorViewController <span class="keyword">class</span>] createViewControllerUsingBlock:^__kindof <span class="built_in">UIViewController</span> * _Nonnull &#123;</span><br><span class="line">    <span class="keyword">return</span> [[RandomColorViewController alloc] init];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意</strong>：<br>执行上面代码之后并不会立即跳转，下面代码可以实现立即跳转：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span>.navigationController ux_redirectViewControllerClass:[RandomColorViewController <span class="keyword">class</span>] createViewControllerUsingBlock:^__kindof <span class="built_in">UIViewController</span> * _Nonnull &#123;</span><br><span class="line">    <span class="keyword">return</span> [[RandomColorViewController alloc] init];</span><br><span class="line">&#125;];</span><br><span class="line">[<span class="keyword">self</span>.navigationController popViewControllerAnimated:<span class="literal">YES</span>];</span><br></pre></td></tr></table></figure>
+
+<p>上面代码大意为：首先查找 <code>self.navigationController.ViewConrollers</code> 是否存在一个类型为 <code>[RandomColorViewController class]</code> 的实例对象，如果存在则重定向到此视图控制器，没有则使用 <code>[[RandomColorViewController alloc] init]</code> 来创建一个新的 <code>[RandomColorViewController class]</code> 的实例对象。</p>
+<h3 id="导航栏点击事件穿透到底部"><a href="#导航栏点击事件穿透到底部" class="headerlink" title="导航栏点击事件穿透到底部"></a>导航栏点击事件穿透到底部</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController06_ClickEventHitToBack.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)ux_hidesNavigationBar &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="动态修改导航栏样式"><a href="#动态修改导航栏样式" class="headerlink" title="动态修改导航栏样式"></a>动态修改导航栏样式</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Advanced/Controllers/ViewController07_ScrollChangeNavigationBar.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">BOOL</span>)ux_containerViewWithoutNavigtionBar &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">YES</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>可以动态调整 ContainerView 透明度实现：<code>self.ux_navigationBar.containerView.alpha = value</code></p>
+<h3 id="更新导航栏样式"><a href="#更新导航栏样式" class="headerlink" title="更新导航栏样式"></a>更新导航栏样式</h3><p>📝 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/UXNavigationExtensionDemo/Feature/Common/Controllers/RandomColorViewController.m">示例代码</a></p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="keyword">self</span> ux_setNeedsNavigationBarAppearanceUpdate];</span><br></pre></td></tr></table></figure>
+
+<p>如果<strong>状态栏</strong>样式没有发生变化，请检查是否需要调用方法 <code>[self setNeedsStatusBarAppearanceUpdate]</code>，或者在 <code>UINavigationController</code> 的子类中设置如下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">- (<span class="built_in">UIViewController</span> *)childViewControllerForStatusBarStyle &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.topViewController;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="built_in">UIViewController</span> *)childViewControllerForStatusBarHidden &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">self</span>.topViewController;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="📄-协议"><a href="#📄-协议" class="headerlink" title="📄 协议"></a>📄 协议</h2><p>UXNavigationExtension 框架是在 MIT 许可下发布的。详情请参见 <a target="_blank" rel="noopener" href="https://github.com/l1Dan/UXNavigationExtension/blob/master/LICENSE">LICE<em>N</em>SE</a>。</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/03/2021-05-03-apple-objective-c-style-guide/" rel="prev" title="Objective-C 样式指南">
+      <i class="fa fa-chevron-left"></i> Objective-C 样式指南
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8E%89-%E9%A2%84%E8%A7%88"><span class="nav-number">1.</span> <span class="nav-text">🎉 预览</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%9F-%E5%BC%80%E5%A7%8B%E4%BD%BF%E7%94%A8"><span class="nav-number">2.</span> <span class="nav-text">🌟 开始使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-CocoaPods-%E5%AE%89%E8%A3%85"><span class="nav-number">3.</span> <span class="nav-text">使用 CocoaPods 安装</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Carthage-%E5%AE%89%E8%A3%85"><span class="nav-number">3.1.</span> <span class="nav-text">使用 Carthage 安装</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-Swift-Package-Manager-%E5%AE%89%E8%A3%85"><span class="nav-number">3.2.</span> <span class="nav-text">使用 Swift Package Manager 安装</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8C%88-%E8%A6%81%E6%B1%82"><span class="nav-number">4.</span> <span class="nav-text">🌈 要求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BC%98%E7%82%B9"><span class="nav-number">5.</span> <span class="nav-text">优点</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%91%8F-%E5%8A%9F%E8%83%BD"><span class="nav-number">6.</span> <span class="nav-text">👏 功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">6.1.</span> <span class="nav-text">基本功能</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">6.2.</span> <span class="nav-text">高级功能</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%BD-%E4%BD%BF%E7%94%A8"><span class="nav-number">7.</span> <span class="nav-text">🍽 使用</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%BB-%E5%9F%BA%E6%9C%AC%E5%8A%9F%E8%83%BD"><span class="nav-number">8.</span> <span class="nav-text">🍻 基本功能</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%E7%AE%AD%E5%A4%B4%E9%A2%9C%E8%89%B2"><span class="nav-number">8.1.</span> <span class="nav-text">修改返回按钮箭头颜色</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E6%A0%87%E9%A2%98%E9%A2%9C%E8%89%B2"><span class="nav-number">9.</span> <span class="nav-text">修改导航栏标题颜色</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E8%83%8C%E6%99%AF%E9%A2%9C%E8%89%B2"><span class="nav-number">9.0.1.</span> <span class="nav-text">修改导航栏背景颜色</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E8%83%8C%E6%99%AF%E5%9B%BE%E7%89%87"><span class="nav-number">9.0.2.</span> <span class="nav-text">修改导航栏背景图片</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%A0%8F%E9%80%8F%E6%98%8E"><span class="nav-number">9.0.3.</span> <span class="nav-text">设置导航栏透明</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%AE%BE%E7%BD%AE%E5%AF%BC%E8%88%AA%E6%A0%8F%E5%8D%8A%E9%80%8F%E6%98%8E"><span class="nav-number">9.0.4.</span> <span class="nav-text">设置导航栏半透明</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E5%BA%95%E9%83%A8%E7%BA%BF%E6%9D%A1%E9%A2%9C%E8%89%B2"><span class="nav-number">9.1.</span> <span class="nav-text">修改导航栏底部线条颜色</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E5%BA%95%E9%83%A8%E7%BA%BF%E6%9D%A1%E9%A2%9C%E8%89%B2%E5%9B%BE%E7%89%87"><span class="nav-number">9.2.</span> <span class="nav-text">修改导航栏底部线条颜色图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E5%BA%95%E9%83%A8%E7%BA%BF%E6%9D%A1%E9%A2%9C%E8%89%B2%E5%9B%BE%E7%89%87-1"><span class="nav-number">9.3.</span> <span class="nav-text">修改导航栏底部线条颜色图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE%E5%9B%BE%E7%89%87"><span class="nav-number">9.4.</span> <span class="nav-text">自定义返回按钮图片</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E8%BF%94%E5%9B%9E%E6%8C%89%E9%92%AE"><span class="nav-number">9.5.</span> <span class="nav-text">自定义返回按钮</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%8D%BA-%E9%AB%98%E7%BA%A7%E5%8A%9F%E8%83%BD"><span class="nav-number">10.</span> <span class="nav-text">🍺 高级功能</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%A6%81%E7%94%A8%E6%BB%91%E5%8A%A8%E8%BF%94%E5%9B%9E%E6%89%8B%E5%8A%BF"><span class="nav-number">10.0.1.</span> <span class="nav-text">禁用滑动返回手势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%90%AF%E7%94%A8%E5%85%A8%E5%B1%8F%E6%BB%91%E5%8A%A8%E8%BF%94%E5%9B%9E%E6%89%8B%E5%8A%BF"><span class="nav-number">10.0.2.</span> <span class="nav-text">启用全屏滑动返回手势</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E6%A0%8F%E8%BF%94%E5%9B%9E%E4%BA%8B%E4%BB%B6%E6%8B%A6%E6%88%AA"><span class="nav-number">10.0.3.</span> <span class="nav-text">导航栏返回事件拦截</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%87%8D%E5%AE%9A%E5%90%91%E4%BB%BB%E4%B8%80%E6%8E%A7%E5%88%B6%E5%99%A8%E8%B7%B3%E8%BD%AC"><span class="nav-number">10.1.</span> <span class="nav-text">重定向任一控制器跳转</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AF%BC%E8%88%AA%E6%A0%8F%E7%82%B9%E5%87%BB%E4%BA%8B%E4%BB%B6%E7%A9%BF%E9%80%8F%E5%88%B0%E5%BA%95%E9%83%A8"><span class="nav-number">10.2.</span> <span class="nav-text">导航栏点击事件穿透到底部</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8A%A8%E6%80%81%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E6%A0%B7%E5%BC%8F"><span class="nav-number">10.3.</span> <span class="nav-text">动态修改导航栏样式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E5%AF%BC%E8%88%AA%E6%A0%8F%E6%A0%B7%E5%BC%8F"><span class="nav-number">10.4.</span> <span class="nav-text">更新导航栏样式</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%F0%9F%93%84-%E5%8D%8F%E8%AE%AE"><span class="nav-number">11.</span> <span class="nav-text">📄 协议</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李丹(l1dan@hotmail.com)"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李丹(l1dan@hotmail.com)</p>
+  <div class="site-description" itemprop="description">帮助自己成长，如有不对还望斧正。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">7</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/l1Dan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;l1Dan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l1Dan@hotmail.com" title="E-Mail → mailto:l1Dan@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李丹(l1dan@hotmail.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Of0luUUTAuJkW9h7x78FM3cm-MdYXbMMI',
+      appKey     : 'n9h1cNSngrgulr82NcWmlUTo',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
