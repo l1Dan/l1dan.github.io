@@ -343,10 +343,10 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="number">7</span> == number) &#123; &#125;</span><br><span class="line"><span class="keyword">if</span> ([constant isEqual:value]) &#123; ...</span><br></pre></td></tr></table></figure>
 
 <p>可以先处理复杂的表达式，将处理结果作为条件，便于提高可读性。</p>
-<p><strong><em>推荐:</em></strong></p>
+<p><em><strong>推荐:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">BOOL</span> stateForDismissalIsCorrect = [object something] &amp;&amp; [object somethingElse] &amp;&amp; ithinkSo;</span><br><span class="line"><span class="keyword">if</span> (stateForDismissalIsCorrect) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>重构:</em></strong></p>
+<p><em><strong>重构:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([object something] &amp;&amp; [object somethingElse] &amp;&amp; ithinkSo) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>检查「@optional」方法时，不需要检查代理是否存在：</p>
@@ -381,17 +381,17 @@
 
 <p>私有方法没有特殊要求，可以将它们命名为常规方法，但不要使用下划线前缀，因为下划线 <code>_</code> 开头的方法是<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1003829-BCIBDJCA">保留给 Apple SDK 内部使用的</a>。</p>
 <p>在类实现中，方法与方法之间应该有空行，@implementation 前后应有空行。<code>#pragma mark</code> 前后都要有空行。</p>
-<p><strong><em>推荐:</em></strong></p>
+<p><em><strong>推荐:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPersonViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">UIButton</span> *settingsButton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersonViewController</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - LifeCycle</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - Settings</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)goToSettings:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><ul>
 <li>使用 Objective-C 2.0 风格，枚举应使用 <code>NS_ENUM</code> 宏声明。</li>
 <li>此外，在编写 <code>NS_ENUM</code> case 名称时，请使用易于编译器自动推导的名称，这也符合 Apple 的命名习惯:</li>
 </ul>
-<p><strong><em>推荐:</em></strong></p>
+<p><em><strong>推荐:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(XYZCollectionViewLayoutMode, <span class="built_in">NSUInteger</span>) &#123;</span><br><span class="line">     XYZCollectionViewLayoutModeGrid,</span><br><span class="line">     XYZCollectionViewLayoutModeFullscreen</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>不可取:</em></strong></p>
+<p><em><strong>不可取:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(XYZCollectionViewLayoutMode, <span class="built_in">NSUInteger</span>) &#123;</span><br><span class="line">     XYZCollectionViewLayoutGridMode,</span><br><span class="line">     XYZCollectionViewLayoutFullscreenMode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>在处理 <em>state</em> 而不是 <em>behaviour</em> 时，更加倾向于使用属性而不是方法。</p>
@@ -494,10 +494,10 @@
 <p>对于已声明的 <code>init</code> 方法，即使只有一个，所有类都应该调用 <code>NS_DESIGNATED_INITIALIZER</code> 标识的 <code>init</code> 方法以保证类的正确初始化。</p>
 <h2 id="instancetype-vs-id"><a href="#instancetype-vs-id" class="headerlink" title="instancetype vs id"></a>instancetype vs id</h2><ul>
 <li>如果不知道 <code>instancetype</code> 是什么？请阅读<a target="_blank" rel="noopener" href="https://nshipster.cn/instancetype/">这份</a>和<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/releasenotes/ObjectiveC/ModernizationObjC/AdoptingModernObjective-C/AdoptingModernObjective-C.html#//apple_ref/doc/uid/TP40014150">这份</a>文档。</li>
-<li>对于 <code>init</code> 方法，我们应该使用 Objective-C 2.0 规范，因此请在 <code>init</code> 方法中 <strong><em>始终使用 instancetype</em></strong> 作为返回值类型。</li>
+<li>对于 <code>init</code> 方法，我们应该使用 Objective-C 2.0 规范，因此请在 <code>init</code> 方法中 <em><strong>始终使用 instancetype</strong></em> 作为返回值类型。</li>
 <li>对于工厂方法，有两种情况，这两种方式能够很好的表达便利构造函数。<ul>
-<li>当工厂方法可以被子类化时: <strong><em>使用 instancetype</em></strong></li>
-<li>当工厂方法不打算被子类化时: <strong><em>使用显示类型</em></strong></li>
+<li>当工厂方法可以被子类化时: <em><strong>使用 instancetype</strong></em></li>
+<li>当工厂方法不打算被子类化时: <em><strong>使用显示类型</strong></em></li>
 </ul>
 </li>
 </ul>
@@ -553,14 +553,14 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">getter</span>=isEditable) <span class="built_in">BOOL</span> editable;</span><br></pre></td></tr></table></figure>
 <p>示例来源于<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html">Cocoa 编码规范</a>。</p>
 <h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>使用 <code>block</code> 需要注意一些内存问题，从长远来看，这可能会导致应用程序内存泄漏。所以良好的代码风格可以反映出扎实的编码功底并有效地减少可能会出现的问题。当从 <strong>任何的</strong> <code>block</code> 中访问 <code>self</code> 时，<strong>总是</strong>声明一个弱引用 self。</p>
-<p><strong><em>推荐:</em></strong></p>
+<p><em><strong>推荐:</strong></em></p>
 <p>总是使用 self 的若引用，即使这里不会循环引用。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    weakSelf.inputView.hidden = hidden;</span><br><span class="line">    weakSelf.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [weakSelf updateTableViewContentInsets];</span><br><span class="line">    [weakSelf updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
 <p>或者使用 <code>[libextobjc](https://github.com/jspahrsummers/libextobjc)</code> 库的宏可以非常方便地使用 <code>@weakify/@strongify</code>。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@weakify(<span class="keyword">self</span>);</span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    @strongify(<span class="keyword">self</span>);</span><br><span class="line">    <span class="keyword">self</span>.inputView.hidden = hidden;</span><br><span class="line">    <span class="keyword">self</span>.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [<span class="keyword">self</span> updateTableViewContentInsets];</span><br><span class="line">    [<span class="keyword">self</span> updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
-<p><strong><em>禁止:</em></strong></p>
+<p><em><strong>禁止:</strong></em></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    <span class="keyword">self</span>.inputView.hidden = hidden;</span><br><span class="line">    <span class="keyword">self</span>.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [<span class="keyword">self</span> updateTableViewContentInsets];</span><br><span class="line">    [<span class="keyword">self</span> updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
 <h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><p>通常尽可能避免使用它们，而应使用依赖项注入「NS_DESIGNATED_INITIALIZER 方法」。有必要的话所需的单例对象应使用线程安全模式来创建其共享实例</p>
