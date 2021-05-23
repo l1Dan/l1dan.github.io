@@ -21,15 +21,15 @@
     var CONFIG = {"hostname":"l1dan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
   </script>
 
-  <meta name="description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。 介绍以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：  Objective-C 编程语言 Cocoa 入门指南 Cocoa 编码规范 Apple Developer 技术指南  目录 可空">
+  <meta name="description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Objective-C 样式指南">
 <meta property="og:url" content="https://l1dan.github.io/2021/05/03/2021-05-03-apple-objective-c-style-guide/index.html">
 <meta property="og:site_name" content="l1Dan&#39;s blog">
-<meta property="og:description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。 介绍以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：  Objective-C 编程语言 Cocoa 入门指南 Cocoa 编码规范 Apple Developer 技术指南  目录 可空">
+<meta property="og:description" content="Objective-C 样式指南本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2021-05-03T03:21:56.000Z">
-<meta property="article:modified_time" content="2021-05-23T13:35:26.645Z">
+<meta property="article:modified_time" content="2021-05-23T15:30:53.772Z">
 <meta property="article:author" content="李丹(l1dan@hotmail.com)">
 <meta property="article:tag" content="Objective-C">
 <meta name="twitter:card" content="summary">
@@ -191,7 +191,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2021-05-23 21:35:26" itemprop="dateModified" datetime="2021-05-23T21:35:26+08:00">2021-05-23</time>
+                <time title="修改时间：2021-05-23 23:30:53" itemprop="dateModified" datetime="2021-05-23T23:30:53+08:00">2021-05-23</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -236,6 +236,8 @@
 
       
         <h1 id="Objective-C-样式指南"><a href="#Objective-C-样式指南" class="headerlink" title="Objective-C 样式指南"></a>Objective-C 样式指南</h1><p>本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。</p>
+<span id="more"></span>
+
 <h2 id="介绍"><a href="#介绍" class="headerlink" title="介绍"></a>介绍</h2><p>以下是 Apple 官方提供的有关样式指南的文档。如果此处未提及某些内容，下面的文档中也能找到详细介绍内容：</p>
 <ul>
 <li><a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html">Objective-C 编程语言</a></li>
@@ -288,6 +290,7 @@
 </ul>
 <p>可空性只是编译器的特性。这也意味着运行时代码不会被更改。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NS_ASSUME_NONNULL_BEGIN</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">ViewController</span> : <span class="title">UIViewController</span></span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>) <span class="built_in">NSString</span> *nonNullString;</span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">NS_ASSUME_NONNULL_END</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用</span></span><br><span class="line"><span class="built_in">NSString</span> *aString = [<span class="built_in">NSString</span> stringWithFormat:<span class="string">@&quot;helloworld %.1f&quot;</span>,<span class="number">1.0</span>];</span><br><span class="line">aString = <span class="literal">nil</span>;</span><br><span class="line">controller.nonNullString = aString; <span class="comment">// 正常</span></span><br><span class="line">controller.nonNullString = <span class="literal">nil</span>; <span class="comment">// 警告</span></span><br></pre></td></tr></table></figure>
+
 <p>属性如果没有明确添加 <code>nonnull</code>，默认就是 <code>nonnull</code>。但是添加了 <code>nonnull</code> 的注解并不表示不能复制为 <code>nil</code>，虽然在代码中显示设置属性为 <code>nil</code> 时会提示警告信息，但是间接设置编译器却无法提示。为了保证运行的稳定，我们还是需要检查对象是否为 <code>nil</code>。</p>
 <hr>
 <h2 id="点语法"><a href="#点语法" class="headerlink" title="点语法"></a>点语法</h2><p>点语法应该<strong>总是</strong>用于访问和修改属性。另外的情况应该选择方括号「中括号」语法。</p>
@@ -300,6 +303,7 @@
 <p>使用 Objective-C 语言，不推荐使用点语法来访问其他方法。点语法只是语法糖，因此这样调用方法也是可以正常运行的。</p>
 <p><strong>不可取:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIApplication</span> *application = <span class="built_in">UIApplication</span>.sharedApplication</span><br></pre></td></tr></table></figure>
+
 <p>方括号「中括号」语法可以用来访问 <a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/EncapsulatingData/EncapsulatingData.html#//apple_ref/doc/uid/TP40011210-CH5-SW2">getter 方法</a>:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">getter</span>=isFinished) <span class="built_in">BOOL</span> finished;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> ([operation isFinished]) <span class="comment">// 推荐</span></span><br><span class="line"><span class="keyword">if</span> (operation.finished) <span class="comment">// 推荐</span></span><br><span class="line"><span class="keyword">if</span> (operation.isFinished) <span class="comment">// 不可取</span></span><br></pre></td></tr></table></figure>
 
@@ -319,8 +323,10 @@
 </ul>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span> *message = <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;home.intro.message&quot;</span>, <span class="literal">nil</span>);</span><br></pre></td></tr></table></figure>
+
 <p><strong>不可取:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSString</span>* message = <span class="built_in">NSLocalizedString</span>(<span class="string">@&quot;home.intro.message&quot;</span>, <span class="literal">nil</span>);</span><br></pre></td></tr></table></figure>
+
 <h2 id="括号"><a href="#括号" class="headerlink" title="括号"></a>括号</h2><p>花括号「大括号」在程序分支结构中的使用「<code>if</code>/<code>else</code>/<code>switch</code>/<code>while</code>」:</p>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([user isHappy]) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)myMethod &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -337,8 +343,9 @@
 
 <p>或者</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (!error) <span class="keyword">return</span> success;</span><br></pre></td></tr></table></figure>
+
 <p>如果对于此规则无感，请参阅 <a target="_blank" rel="noopener" href="https://www.imperialviolet.org/2014/02/22/applebug.html">Apple SSL bug</a> 问题。</p>
-<p>始终避免 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903603778355214">Yoda 条件</a> </p>
+<p>始终避免 <a target="_blank" rel="noopener" href="https://juejin.cn/post/6844903603778355214">Yoda 条件</a></p>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (number == <span class="number">7</span>) &#123; &#125;</span><br><span class="line"><span class="keyword">if</span> ([value isEqual:constant]) &#123; ...</span><br></pre></td></tr></table></figure>
 
@@ -346,18 +353,18 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="number">7</span> == number) &#123; &#125;</span><br><span class="line"><span class="keyword">if</span> ([constant isEqual:value]) &#123; ...</span><br></pre></td></tr></table></figure>
 
 <p>可以先处理复杂的表达式，将处理结果作为条件，便于提高可读性。</p>
-<p><em><strong>推荐:</strong></em></p>
+<p><strong><em>推荐:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">BOOL</span> stateForDismissalIsCorrect = [object something] &amp;&amp; [object somethingElse] &amp;&amp; ithinkSo;</span><br><span class="line"><span class="keyword">if</span> (stateForDismissalIsCorrect) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><em><strong>重构:</strong></em></p>
+<p><strong><em>重构:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([object something] &amp;&amp; [object somethingElse] &amp;&amp; ithinkSo) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>检查「@optional」方法时，不需要检查代理是否存在：</p>
 <p><strong>推荐:</strong></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(...)]) &#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> ([<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(...)]) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>不推荐:</strong></p>
-<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(...)]) &#123; </span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (<span class="keyword">self</span>.delegate &amp;&amp; [<span class="keyword">self</span>.delegate respondsToSelector:<span class="keyword">@selector</span>(...)]) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="三目运算符"><a href="#三目运算符" class="headerlink" title="三目运算符"></a>三目运算符</h2><p>三元运算符 <code>?</code>，可以增加清晰度和代码整洁度。通常用于判断单个条件。判断多个条件时可以重构使用 <code>if</code> 语句判断代码，这样逻辑会更加清晰易懂。</p>
 <p><strong>推荐:</strong></p>
@@ -369,11 +376,13 @@
 <h2 id="错误处理"><a href="#错误处理" class="headerlink" title="错误处理"></a>错误处理</h2><p>当方法通过引用返回错误参数时，请使用接受的返回值作为判断依据，而不是使用错误变量判断。</p>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="keyword">if</span> (![<span class="keyword">self</span> trySomethingWithError:&amp;error]) &#123;</span><br><span class="line">    <span class="comment">// 错误处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>或者</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line"><span class="built_in">NSData</span> *data = [<span class="built_in">NSJSONSerialization</span> dataWithJSONObject:object options:<span class="built_in">NSJSONWritingPrettyPrinted</span> error:&amp;error];</span><br><span class="line"><span class="keyword">if</span> (data) &#123;</span><br><span class="line">     <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>不推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">NSError</span> *error;</span><br><span class="line">[<span class="keyword">self</span> trySomethingWithError:&amp;error];</span><br><span class="line"><span class="keyword">if</span> (error) &#123;</span><br><span class="line">    <span class="comment">// 错误处理</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>在成功的情况下，某些 Apple 的 API 会将垃圾值写入错误参数「错误如果为非 NULL」，如果这样判断错误就会导致误报「可能会产生崩溃」。</p>
 <h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><p>在方法签名中，作用域「-/+ 符号」后应有一个空格，形参与方法签名也有一个空格。</p>
 <p><strong>推荐:</strong></p>
@@ -384,17 +393,17 @@
 
 <p>私有方法没有特殊要求，可以将它们命名为常规方法，但不要使用下划线前缀，因为下划线 <code>_</code> 开头的方法是<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingMethods.html#//apple_ref/doc/uid/20001282-1003829-BCIBDJCA">保留给 Apple SDK 内部使用的</a>。</p>
 <p>在类实现中，方法与方法之间应该有空行，@implementation 前后应有空行。<code>#pragma mark</code> 前后都要有空行。</p>
-<p><em><strong>推荐:</strong></em></p>
+<p><strong><em>推荐:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPersonViewController</span> ()</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="built_in">UIButton</span> *settingsButton;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZPersonViewController</span></span></span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - LifeCycle</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidLoad &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)viewDidAppear:(<span class="built_in">BOOL</span>)animated &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">#<span class="meta-keyword">pragma</span> mark - Settings</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">IBAction</span>)goToSettings:(<span class="keyword">id</span>)sender &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h2 id="枚举"><a href="#枚举" class="headerlink" title="枚举"></a>枚举</h2><ul>
 <li>使用 Objective-C 2.0 风格，枚举应使用 <code>NS_ENUM</code> 宏声明。</li>
 <li>此外，在编写 <code>NS_ENUM</code> case 名称时，请使用易于编译器自动推导的名称，这也符合 Apple 的命名习惯:</li>
 </ul>
-<p><em><strong>推荐:</strong></em></p>
+<p><strong><em>推荐:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(XYZCollectionViewLayoutMode, <span class="built_in">NSUInteger</span>) &#123;</span><br><span class="line">     XYZCollectionViewLayoutModeGrid,</span><br><span class="line">     XYZCollectionViewLayoutModeFullscreen</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p><em><strong>不可取:</strong></em></p>
+<p><strong><em>不可取:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="built_in">NS_ENUM</span>(XYZCollectionViewLayoutMode, <span class="built_in">NSUInteger</span>) &#123;</span><br><span class="line">     XYZCollectionViewLayoutGridMode,</span><br><span class="line">     XYZCollectionViewLayoutFullscreenMode</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><p>在处理 <em>state</em> 而不是 <em>behaviour</em> 时，更加倾向于使用属性而不是方法。</p>
@@ -405,10 +414,10 @@
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZProfileController</span> : <span class="title">UIViewController</span></span></span><br><span class="line"></span><br><span class="line">- (XYZProfile *)profile;</span><br><span class="line">- (<span class="keyword">void</span>)setProfile:(XYZProfile *)profile;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
 <ul>
-<li>属性声明的格式在 @property 之后应有空格:</li>
+<li>属性声明的格式在 @property 之后应有空格:<br><strong>推荐:</strong></li>
 </ul>
-<p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPerson</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">copy</span>, <span class="keyword">readonly</span>) <span class="built_in">NSString</span> *identifier;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>不推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPerson</span></span></span><br><span class="line"><span class="keyword">@property</span>(<span class="keyword">nonatomic</span>,<span class="keyword">copy</span>,<span class="keyword">readonly</span>) <span class="built_in">NSString</span>* identifier;</span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
@@ -420,6 +429,7 @@
 </ul>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPerson</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSUInteger</span> numberOfCommonPlaces;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="built_in">NSArray</span> *commonPlaces;</span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">weak</span>) <span class="keyword">id</span>&lt;XYZPersonDelegate&gt; delegate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
+
 <p><strong>不可取:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZPerson</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>, <span class="keyword">assign</span>) <span class="built_in">NSUInteger</span> numberOfCommonPlaces; <span class="comment">// NSUInteger 默认使用 `assign`</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">strong</span>) <span class="built_in">NSArray</span> *commonPlaces; <span class="comment">// 除非确实需要，否则不应该是原子的，默认使用 `atomic`</span></span><br><span class="line"><span class="keyword">@property</span> (<span class="keyword">nonatomic</span>) <span class="keyword">id</span>&lt;XYZPersonDelegate&gt; delegate; <span class="comment">// 代理需要使用 `weak`</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
 
@@ -429,6 +439,7 @@
 <li>在 <code>dealloc</code> 和 <code>init</code> 方法实现中，我们应该使用 ivars 来访问和修改属性，因为对象在 <code>dealloc</code> 和 <code>init</code> 时，对象有些状态是不确定的。</li>
 </ul>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZProfile</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)dealloc &#123;</span><br><span class="line">    [_updateTimer invalidate];</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">- (XYZTimer *)updateTimer &#123;</span><br><span class="line">    <span class="keyword">if</span> (!_updateTimer) &#123;</span><br><span class="line">        _updateTimer = [[XYZTimer alloc] init];</span><br><span class="line">        <span class="comment">// ...</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> _updateTimer;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <blockquote>
 <p>有关在 <code>init</code> 方法和 <code>dealloc</code> 方法中使用访问器 <code>Accessor</code> 方法的更多信息，请参见<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/MemoryMgmt/Articles/mmPractical.html#//apple_ref/doc/uid/TP40004447-SW6">此处</a>。</p>
 </blockquote>
@@ -439,6 +450,7 @@
 
 <p><strong>不推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">UIButton</span> *setBut;</span><br></pre></td></tr></table></figure>
+
 <p>类名、分类「尤其是 <code>Cocoa</code> 的分类」和常量应始终使用三个字母的前缀。常数应为驼峰 <code>camel-case</code> 大小写，所有单词均以大写字母开头，并以相关的类名作为前缀，使其更加清晰。该前缀取决于代码所在的位置，可以是模块前缀也可以是所在层级的结构名称，比如：「PL，BLL，DAL 等」</p>
 <p><strong>推荐:</strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">static</span> <span class="keyword">const</span> <span class="built_in">NSTimeInterval</span> XYZProfileViewControllerNavigationFadeAnimationDuration = <span class="number">0.4</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">NSAttributedString</span> (<span class="title">XYZHTMLParsing</span>)</span></span><br><span class="line"></span><br><span class="line">- (<span class="keyword">void</span>)XYZ_attributedStringFromHTML:(<span class="built_in">NSString</span> *)string;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br></pre></td></tr></table></figure>
@@ -448,7 +460,7 @@
 
 <ul>
 <li>属性和局部变量应为驼峰式 <code>camel-case</code>，首字母为小写。</li>
-<li>实例变量应为驼峰式 <code>camel-case</code>，首字母为小写，并以下划线作为前缀。 </li>
+<li>实例变量应为驼峰式 <code>camel-case</code>，首字母为小写，并以下划线作为前缀。</li>
 <li>这与 LLVM 自动合成的实例变量一致，如果<strong>LLVM 可以自动合成该变量，则无需处理</strong>。</li>
 </ul>
 <p><strong>推荐:</strong></p>
@@ -481,6 +493,7 @@
 
 <h2 id="协议"><a href="#协议" class="headerlink" title="协议"></a>协议</h2><p>协议语法和代理语法类型:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">@protocol</span> <span class="title">XYZPerson</span> &lt;<span class="title">NSObject</span>&gt;</span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)somethingProtocolMethod;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@interface</span> <span class="title">XYZMutualAttraction</span> : <span class="title">NSObject</span> &lt;<span class="title">XYZPerson</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">@implementation</span> <span class="title">XYZMutualAttraction</span></span></span><br><span class="line"></span><br><span class="line">- (<span class="built_in">BOOL</span>)somethingProtocolMethod &#123;</span><br><span class="line"> <span class="comment">// ....</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">@end</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 <p>优先使用<a href="#%E5%B1%9E%E6%80%A7">属性</a>, 而不是协议中的<a href="#%E6%96%B9%E6%B3%95">方法</a>。</p>
 <p><strong>协议「Protocols」</strong>和**<a href="#%E4%BB%A3%E7%90%86">代理</a>「Delegates」** 语法是一致，但是它们还是有细微的区别:</p>
 <ul>
@@ -497,10 +510,10 @@
 <p>对于已声明的 <code>init</code> 方法，即使只有一个，所有类都应该调用 <code>NS_DESIGNATED_INITIALIZER</code> 标识的 <code>init</code> 方法以保证类的正确初始化。</p>
 <h2 id="instancetype-vs-id"><a href="#instancetype-vs-id" class="headerlink" title="instancetype vs id"></a>instancetype vs id</h2><ul>
 <li>如果不知道 <code>instancetype</code> 是什么？请阅读<a target="_blank" rel="noopener" href="https://nshipster.cn/instancetype/">这份</a>和<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/releasenotes/ObjectiveC/ModernizationObjC/AdoptingModernObjective-C/AdoptingModernObjective-C.html#//apple_ref/doc/uid/TP40014150">这份</a>文档。</li>
-<li>对于 <code>init</code> 方法，我们应该使用 Objective-C 2.0 规范，因此请在 <code>init</code> 方法中 <em><strong>始终使用 instancetype</strong></em> 作为返回值类型。</li>
+<li>对于 <code>init</code> 方法，我们应该使用 Objective-C 2.0 规范，因此请在 <code>init</code> 方法中 <strong><em>始终使用 instancetype</em></strong> 作为返回值类型。</li>
 <li>对于工厂方法，有两种情况，这两种方式能够很好的表达便利构造函数。<ul>
-<li>当工厂方法可以被子类化时: <em><strong>使用 instancetype</strong></em></li>
-<li>当工厂方法不打算被子类化时: <em><strong>使用显示类型</strong></em></li>
+<li>当工厂方法可以被子类化时: <strong><em>使用 instancetype</em></strong></li>
+<li>当工厂方法不打算被子类化时: <strong><em>使用显示类型</em></strong></li>
 </ul>
 </li>
 </ul>
@@ -554,24 +567,27 @@
 <hr>
 <p>如果 <code>BOOL</code> 属性的名字表示为形容词，该属性可以省略 <code>is</code> 前缀，但是通常 <code>get</code> 方法前面会添加 <code>is</code> 前缀，例如:</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">@property</span> (<span class="keyword">assign</span>, <span class="keyword">getter</span>=isEditable) <span class="built_in">BOOL</span> editable;</span><br></pre></td></tr></table></figure>
+
 <p>示例来源于<a target="_blank" rel="noopener" href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/CodingGuidelines/Articles/NamingIvarsAndTypes.html">Cocoa 编码规范</a>。</p>
 <h2 id="代码块"><a href="#代码块" class="headerlink" title="代码块"></a>代码块</h2><p>使用 <code>block</code> 需要注意一些内存问题，从长远来看，这可能会导致应用程序内存泄漏。所以良好的代码风格可以反映出扎实的编码功底并有效地减少可能会出现的问题。当从 <strong>任何的</strong> <code>block</code> 中访问 <code>self</code> 时，<strong>总是</strong>声明一个弱引用 self。</p>
-<p><em><strong>推荐:</strong></em></p>
+<p><strong><em>推荐:</em></strong></p>
 <p>总是使用 self 的若引用，即使这里不会循环引用。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">__<span class="keyword">weak</span> <span class="keyword">typeof</span>(<span class="keyword">self</span>) weakSelf = <span class="keyword">self</span>;</span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    weakSelf.inputView.hidden = hidden;</span><br><span class="line">    weakSelf.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [weakSelf updateTableViewContentInsets];</span><br><span class="line">    [weakSelf updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
 <p>或者使用 <code>[libextobjc](https://github.com/jspahrsummers/libextobjc)</code> 库的宏可以非常方便地使用 <code>@weakify/@strongify</code>。</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">@weakify(<span class="keyword">self</span>);</span><br><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    @strongify(<span class="keyword">self</span>);</span><br><span class="line">    <span class="keyword">self</span>.inputView.hidden = hidden;</span><br><span class="line">    <span class="keyword">self</span>.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [<span class="keyword">self</span> updateTableViewContentInsets];</span><br><span class="line">    [<span class="keyword">self</span> updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
-<p><em><strong>禁止:</strong></em></p>
+<p><strong><em>禁止:</em></strong></p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[<span class="built_in">UIView</span> animateWithDuration:(animated ? <span class="number">0.2</span> : <span class="number">0.0</span>) animations:^&#123;</span><br><span class="line">    <span class="keyword">self</span>.inputView.hidden = hidden;</span><br><span class="line">    <span class="keyword">self</span>.inputView.userInteractionEnabled = !hidden;</span><br><span class="line">    [<span class="keyword">self</span> updateTableViewContentInsets];</span><br><span class="line">    [<span class="keyword">self</span> updateScrollIndicatorInsets];</span><br><span class="line">&#125;];</span><br></pre></td></tr></table></figure>
 
 <h2 id="单例"><a href="#单例" class="headerlink" title="单例"></a>单例</h2><p>通常尽可能避免使用它们，而应使用依赖项注入「NS_DESIGNATED_INITIALIZER 方法」。有必要的话所需的单例对象应使用线程安全模式来创建其共享实例</p>
 <figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">+ (<span class="keyword">instancetype</span>)sharedInstance &#123;</span><br><span class="line">   <span class="keyword">static</span> <span class="keyword">id</span> sharedInstance = <span class="literal">nil</span>;</span><br><span class="line"></span><br><span class="line">   <span class="keyword">static</span> <span class="built_in">dispatch_once_t</span> onceToken;</span><br><span class="line">   <span class="built_in">dispatch_once</span>(&amp;onceToken, ^&#123;</span><br><span class="line">      sharedInstance = [[<span class="keyword">self</span> alloc] init];</span><br><span class="line">   &#125;);</span><br><span class="line"></span><br><span class="line">   <span class="keyword">return</span> sharedInstance;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 <p>这么操作可以防止可能发生的崩溃，因为 <code>dispatch_once</code> 本身是多线程安全的。</p>
 <h2 id="Xcode-项目"><a href="#Xcode-项目" class="headerlink" title="Xcode 项目"></a>Xcode 项目</h2><p>如果条件允许，请<strong>始终</strong>在 Target 的 “Build Settings” 中打开 “Treat Warnings as Errors”「GCC_TREAT_WARNINGS_AS_ERRORS」，并启用尽可能多的其他警告。如果您需要忽略特定警告，请使用 <a target="_blank" rel="noopener" href="http://clang.llvm.org/docs/UsersManual.html#controlling-diagnostics-via-pragmas">Clang’s pragma feature</a>。</p>
 <h2 id="代码格式化"><a href="#代码格式化" class="headerlink" title="代码格式化"></a>代码格式化</h2><p><strong>始终</strong>启用 clang-format 插件格式化代码。</p>
 <figure class="highlight ruby"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 进入项目根目录下执行命令</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-files-in-repo.sh&quot;</span> <span class="comment"># 格式化整个项目</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-files.sh -s&quot;</span> <span class="comment"># 提交代码时格式化所有不符合规范的文件</span></span><br><span class="line">sh <span class="string">&quot;tools/spacecommander/format-objc-file.sh &#123;#FILEPATH&#125;&quot;</span> <span class="comment"># 提交代码时格式化单个不符合规范的文件</span></span><br></pre></td></tr></table></figure>
+
     </div>
 
     
@@ -592,7 +608,10 @@
     <a href="/2020/08/01/2020-08-01-install-software-in-archlinux/" rel="prev" title="Arch Linux 软件安装">
       <i class="fa fa-chevron-left"></i> Arch Linux 软件安装
     </a></div>
-      <div class="post-nav-item"></div>
+      <div class="post-nav-item">
+    <a href="/2021/05/23/2021-05-23-unx-navigator-using/" rel="next" title="Objective-C 样式指南">
+      Objective-C 样式指南 <i class="fa fa-chevron-right"></i>
+    </a></div>
     </div>
       </footer>
     
@@ -668,7 +687,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">6</span>
+          <span class="site-state-item-count">7</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
