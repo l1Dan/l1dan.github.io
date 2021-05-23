@@ -4,18 +4,18 @@
 
 # Site
 title: l1Dan's blog
-subtitle: '日常记录，坐标深圳'
-description: '帮助自己成长，如有不对还望斧正。'
+subtitle: "日常记录，坐标深圳"
+description: "帮助自己成长，如有不对还望斧正。"
 keywords:
 author: 李丹(l1dan@hotmail.com)
 language:
-- zh-CN
-- en
-timezone: ''
+  - zh-CN
+  - en
+timezone: ""
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
-url: https://l1dan.gitee.io/
+url: https://l1dan.github.io/
 root: /
 permalink: :year/:month/:day/:title/
 permalink_defaults:
@@ -40,7 +40,7 @@ titlecase: false # Transform title into titlecase
 external_link:
   enable: true # Open external links in new tab
   field: site # Apply to the whole site
-  exclude: ''
+  exclude: ""
 filename_case: 0
 render_drafts: false
 post_asset_folder: false
@@ -50,21 +50,21 @@ highlight:
   enable: true
   line_number: true
   auto_detect: false
-  tab_replace: ''
+  tab_replace: ""
   wrap: true
   hljs: false
 prismjs:
   enable: false
   preprocess: true
   line_number: true
-  tab_replace: ''
+  tab_replace: ""
 
 # Home page setting
 # path: Root path for your blogs index page. (default = '')
 # per_page: Posts displayed per page. (0 = disable pagination)
 # order_by: Posts order. (Order by date descending by default)
 index_generator:
-  path: ''
+  path: ""
   per_page: 10
   order_by: -date
 
@@ -84,7 +84,7 @@ meta_generator: true
 date_format: YYYY-MM-DD
 time_format: HH:mm:ss
 ## updated_option supports 'mtime', 'date', 'empty'
-updated_option: 'mtime'
+updated_option: "mtime"
 
 # Pagination
 ## Set per_page to 0 to disable pagination
@@ -107,8 +107,8 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type: git
-  repo: https://gitee.com/l1dan/l1dan.git
-  branch: gitee-pages
-  message: "Updated：博客更新"
+  repo: https://github.com/l1Dan/l1dan.github.io
+  branch: gh-pages
+  message: "feat: 博客更新"
   name: lidan
   email: l1dan@hotmail.com
