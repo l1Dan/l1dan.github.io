@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="zh-CN,en,default">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.4.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16.png">
+  <link rel="mask-icon" href="/images/favicon-logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"l1dan.github.io","root":"/","scheme":"Pisces","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":false,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":true,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":"valine","storage":true,"lazyload":false,"nav":null,"activeClass":"valine"},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":false,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}}};
+  </script>
+
+  <meta name="description" content="RxSwift 介绍一、Reactive Extensions    首先说明的是这并不是教大家如何使用 RxSwift API 的教程，更多的是要让大家理解 Rx 的思想，最后能够通过这套思想解决实际的问题。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="RxSwift 介绍">
+<meta property="og:url" content="https://l1dan.github.io/2021/06/02/2021-06-02-using-rxswift/index.html">
+<meta property="og:site_name" content="l1Dan&#39;s blog">
+<meta property="og:description" content="RxSwift 介绍一、Reactive Extensions    首先说明的是这并不是教大家如何使用 RxSwift API 的教程，更多的是要让大家理解 Rx 的思想，最后能够通过这套思想解决实际的问题。">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://reactivex.io/assets/Rx_Logo_S.png">
+<meta property="og:image" content="https://github.com/ReactiveX/RxSwift/raw/main/assets/RxSwift_Logo.png">
+<meta property="og:image" content="https://avatars.githubusercontent.com/u/3422977?s=200&v=4">
+<meta property="article:published_time" content="2021-06-02T15:40:56.000Z">
+<meta property="article:modified_time" content="2021-06-02T15:36:54.709Z">
+<meta property="article:author" content="李丹(l1dan@hotmail.com)">
+<meta property="article:tag" content="Objective-C">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://reactivex.io/assets/Rx_Logo_S.png">
+
+<link rel="canonical" href="https://l1dan.github.io/2021/06/02/2021-06-02-using-rxswift/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>RxSwift 介绍 | l1Dan's blog</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">l1Dan's blog</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+      <p class="site-subtitle" itemprop="description">日常记录，坐标深圳</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档</a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类</a>
+
+  </li>
+  </ul>
+</nav>
+
+
+
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+  <div class="reading-progress-bar"></div>
+
+  <a href="https://github.com/l1Dan" class="github-corner" title="Follow me on GitHub" aria-label="Follow me on GitHub" rel="noopener" target="_blank"><svg width="80" height="80" viewBox="0 0 250 250" aria-hidden="true"><path d="M0,0 L115,115 L130,115 L142,142 L250,250 L250,0 Z"></path><path d="M128.3,109.0 C113.8,99.7 119.0,89.6 119.0,89.6 C122.0,82.7 120.5,78.6 120.5,78.6 C119.2,72.0 123.4,76.3 123.4,76.3 C127.3,80.9 125.5,87.3 125.5,87.3 C122.9,97.6 130.6,101.9 134.4,103.2" fill="currentColor" style="transform-origin: 130px 106px;" class="octo-arm"></path><path d="M115.0,115.0 C114.9,115.1 118.7,116.5 119.8,115.4 L133.7,101.6 C136.9,99.2 139.9,98.4 142.2,98.6 C133.8,88.0 127.5,74.4 143.8,58.0 C148.5,53.4 154.0,51.2 159.7,51.0 C160.3,49.4 163.2,43.6 171.4,40.1 C171.4,40.1 176.1,42.5 178.8,56.2 C183.1,58.6 187.2,61.8 190.9,65.4 C194.5,69.0 197.7,73.2 200.1,77.6 C213.8,80.2 216.3,84.9 216.3,84.9 C212.7,93.1 206.9,96.0 205.4,96.6 C205.1,102.4 203.0,107.8 198.3,112.5 C181.9,128.9 168.3,122.5 157.7,114.1 C157.9,116.9 156.7,120.9 152.7,124.9 L141.0,136.5 C139.8,137.7 141.6,141.9 141.8,141.8 Z" fill="currentColor" class="octo-body"></path></svg></a>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://l1dan.github.io/2021/06/02/2021-06-02-using-rxswift/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.jpeg">
+      <meta itemprop="name" content="李丹(l1dan@hotmail.com)">
+      <meta itemprop="description" content="帮助自己成长，如有不对还望斧正。">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="l1Dan's blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          RxSwift 介绍
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2021-06-02 23:40:56 / 修改时间：23:36:54" itemprop="dateCreated datePublished" datetime="2021-06-02T23:40:56+08:00">2021-06-02</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/iOS/" itemprop="url" rel="index"><span itemprop="name">iOS</span></a>
+                </span>
+            </span>
+
+          
+            <span id="/2021/06/02/2021-06-02-using-rxswift/" class="post-meta-item leancloud_visitors" data-flag-title="RxSwift 介绍" title="阅读次数">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-eye"></i>
+              </span>
+              <span class="post-meta-item-text">阅读次数：</span>
+              <span class="leancloud-visitors-count"></span>
+            </span>
+  
+  <span class="post-meta-item">
+    
+      <span class="post-meta-item-icon">
+        <i class="far fa-comment"></i>
+      </span>
+      <span class="post-meta-item-text">Valine：</span>
+    
+    <a title="valine" href="/2021/06/02/2021-06-02-using-rxswift/#valine-comments" itemprop="discussionUrl">
+      <span class="post-comments-count valine-comment-count" data-xid="/2021/06/02/2021-06-02-using-rxswift/" itemprop="commentCount"></span>
+    </a>
+  </span>
+  
+  
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="RxSwift-介绍"><a href="#RxSwift-介绍" class="headerlink" title="RxSwift 介绍"></a><a target="_blank" rel="noopener" href="https://github.com/ReactiveX/RxSwift">RxSwift</a> 介绍</h1><h2 id="一、Reactive-Extensions"><a href="#一、Reactive-Extensions" class="headerlink" title="一、Reactive Extensions"></a>一、<a target="_blank" rel="noopener" href="http://reactivex.io/">Reactive Extensions</a></h2><img src="http://reactivex.io/assets/Rx_Logo_S.png" width="100px" />
+<img src="https://github.com/ReactiveX/RxSwift/raw/main/assets/RxSwift_Logo.png" width="100px" />
+<img src="https://avatars.githubusercontent.com/u/3422977?s=200&v=4" width="100px" />
+
+<p>首先说明的是这并不是教大家如何使用 RxSwift API 的教程，更多的是要让大家理解 Rx 的思想，最后能够通过这套思想解决实际的问题。</p>
+<span id="more"></span>
+
+<h3 id="简介"><a href="#简介" class="headerlink" title="简介"></a>简介</h3><p>RxSwift 顾名思义，它其实是 Swift 语言的一个框架「库」。要了解 RxSwift 就不得不提 Reactive Extensions[^1]。最初是 LINQ[2] 的一个扩展，由微软的架构师 Erik Meijer 领导的团队开发，在 2012 年 11 月开源。Rx 是一个编程模型，目标是提供一致的编程接口，帮助开发者更方便的处理异步数据流。而 RxSwift 正式基于 Reactive Extensions 标准的 Swift 版本实现。</p>
+<p>Rx 提供用于可观察流[^2]的异步编程的 API。结合了观察者模式[^3]、迭代器模式[^4]和函数式编程[^5]的思想，有人说它是函数响应式编程[^6]，但是 Rx 自己却说：</p>
+<blockquote>
+<p>It is sometimes called “functional reactive programming” but this is a misnomer. ReactiveX may be functional, and it may be reactive, but “functional reactive programming” is a different animal.</p>
+</blockquote>
+<p>大概意思是说：“有时候称 ReactiveX 为‘函数响应式编程’，但是说法不太准确。它可以是函数式的，也可以是响应式的，但是‘函数响应式编程’是个不同的东西。”。</p>
+<p><a target="_blank" rel="noopener" href="https://archive.codeplex.com/?p=rx">微软官方解释</a>：Rx 是一个库，用于使用可观察的序列和 LINQ-style 的查询运算符来组成异步和基于事件的程序，也就是：<code>Rx = Observables + LINQ + Schedulers</code>。我们也可以简单理解为：<code>Rx = Observables + Operators + Schedulers</code>。</p>
+<p>Rx 是一个编程模型或者说是一套编程思想。Rx 并没有规范命名规则，因为编程语言会有自己的命名规范，但是因为最早 Rx 的开源实现是来之 .Net 的 RxNet，很多语言的版本实现时的命名也就参考了 RxNet，久而久之就形成了一套不成文的命名习惯。</p>
+<h2 id="二、为什么要学习-RxSwift？"><a href="#二、为什么要学习-RxSwift？" class="headerlink" title="二、为什么要学习 RxSwift？"></a>二、为什么要学习 RxSwift？</h2><ul>
+<li>几乎所有热门编程语言都会有 Rx 对应的实现版本，也就是说它是跨平台的，保持 “Once and Only Once”[^8] 原则。</li>
+<li>统一所有传统值传递方式 Target-Action、Delegate、Notifications、KVO、Block。</li>
+<li>将所有操作统一为异步处理，有效避免 Callback Hell。</li>
+<li>统一错误处理，能够抽象异步编程，使我们统一了代码风格。</li>
+<li>对应程序员来说，学习一门技术是需要花费很多时间和经历的，如果一个技能能够用在多个地方肯定是最好的。</li>
+<li>非常适合与 MVVM 设计模式配合使用</li>
+<li>…</li>
+</ul>
+<p>对比下两段代码</p>
+<figure class="highlight kotlin"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Observable.create&lt;String&gt; &#123;</span><br><span class="line">    Log.d(TAG, <span class="string">&quot;事件产生线程：<span class="subst">$&#123;Thread.currentThread().name&#125;</span>&quot;</span>)</span><br><span class="line">    it.onNext(<span class="string">&quot;rx&quot;</span>)</span><br><span class="line">    it.onComplete()</span><br><span class="line">&#125;</span><br><span class="line">.subscribeOn(Schedulers.io())</span><br><span class="line">.observeOn(AndroidSchedulers.mainThread())</span><br><span class="line">.subscribe &#123;</span><br><span class="line">    Log.d(TAG, <span class="string">&quot;事件消费线程：<span class="subst">$&#123;Thread.currentThread().name&#125;</span>&quot;</span>)</span><br><span class="line">    Log.d(TAG, it)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;事件产生线程：<span class="subst">\(Thread.current.description)</span>&quot;</span>)</span><br><span class="line">    <span class="variable">$0</span>.onNext(<span class="string">&quot;rx&quot;</span>)</span><br><span class="line">    <span class="variable">$0</span>.onCompleted()</span><br><span class="line">    <span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">&#125;</span><br><span class="line">.subscribe(on: <span class="type">ConcurrentMainScheduler</span>.instance)</span><br><span class="line">.observe(on: <span class="type">MainScheduler</span>.instance)</span><br><span class="line">.subscribe &#123;</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&quot;事件消费线程：<span class="subst">\(Thread.current.description)</span>&quot;</span>)</span><br><span class="line">    <span class="built_in">print</span>(<span class="variable">$0</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看出：1.Kotlin 和 Swift 的语言相似度非常高。2.Rx 操作完全一致。</p>
+<h2 id="三、Reactive-相关库实现选择"><a href="#三、Reactive-相关库实现选择" class="headerlink" title="三、Reactive 相关库实现选择"></a>三、Reactive 相关库实现选择</h2><h3 id="1-Apple’s-Combine"><a href="#1-Apple’s-Combine" class="headerlink" title="1. Apple’s Combine"></a>1. Apple’s Combine</h3><p>Combine 是 Apple 自己实现的 Reactive Streams 标准，只支持 iOS13 及以上系统，服务于 SwiftUI，不支持 UIKit。</p>
+<h3 id="2-ReactiveCocoa-3-x-依赖图"><a href="#2-ReactiveCocoa-3-x-依赖图" class="headerlink" title="2. ReactiveCocoa 3.x 依赖图"></a>2. ReactiveCocoa 3.x 依赖图</h3><p>ReactiveCocoa 借用了大量 Rx 概念，是一套 “函数响应式编程” 的 iOS 库，自成一体。千万不要和 RxSwift 搞混了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">graph BT;</span><br><span class="line">	C(ReactiveObjCBridge) -.-&gt; A(ReactiveSwift);</span><br><span class="line">	subgraph ReactiveCocoa 2.x</span><br><span class="line">	B(ReactiveObjC);</span><br><span class="line">    end</span><br><span class="line">	C(ReactiveObjCBridge) -.-&gt; B(ReactiveObjC)</span><br><span class="line">	D(ReactiveCocoa) -.-&gt; A(ReactiveSwift);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-RxSwift-6-x-依赖图"><a href="#3-RxSwift-6-x-依赖图" class="headerlink" title="3. RxSwift 6.x 依赖图"></a>3. RxSwift 6.x 依赖图</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">graph BT;</span><br><span class="line">	B(RxCocoa) -.-&gt; A(RxSwift);</span><br><span class="line">	C(RxRelay) -.-&gt; A(RxSwift);</span><br><span class="line">	D(RxTest) -.-&gt; A(RxSwift);</span><br><span class="line">	E(RxBlocking) -.-&gt; A(RxSwift);</span><br><span class="line">	B(RxCocoa) -.-&gt; C(RxRelay);</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>RxSwift</code>：RxSwift 的核心，主要提供是 ReactiveX 定义标准的实现。它没有其他依赖项。跨平台。</li>
+<li><code>RxRelay</code>：实现 PublishRelay、BehaviorRelay 和 ReplayRelay 三个类，他们都是 Subject 的子类。依赖 RxSwift。跨平台。</li>
+<li><code>RxTest</code> 和 <code>RxBlocking</code>：为基于 Rx 的系统提供测试功能。依赖 RxSwif。跨平台。</li>
+<li><code>RxCocoa</code>：为 iOS、macOS、watchOS、tvOS 应用开发提供特定的 Cocoa、CocoaTouch 扩展功能。依赖 RxSwift 和 RxRelay。特定平台。</li>
+</ul>
+<h2 id="四、KVO-amp-Binder"><a href="#四、KVO-amp-Binder" class="headerlink" title="四、KVO &amp; Binder"></a>四、KVO &amp; Binder</h2><p>之前说过 Rx 可以理解为：<code>Rx = Observables + Operators + Schedulers</code>。下面我们理解下这其中的含义，</p>
+<h3 id="1-Scheduler-9"><a href="#1-Scheduler-9" class="headerlink" title="1. Scheduler[^9]"></a>1. Scheduler[^9]</h3><p><code>Scheduler</code> 调度器：将执行任务的机制抽象化。其中包括当前执行任务的线程、Dispatch Queue、Operation Queue、新开线程、线程池和 RunLoop。听起来很难理解，其实就是 Rx 为了统一 Scheduler 的概念，将特定平台的多线程机制、队列和线程管理统一对外的调用接口的方式。</p>
+<p>RxSwift 内置的几种 Scheduler</p>
+<ul>
+<li>CurrentThreadScheduler (串行 scheduler)：当前执行任务的默认 scheduler。类比 Thread.current。</li>
+<li>MainScheduler (串行 scheduler)：主要负责 UI 刷新工作的 scheduler。类比 Thread.main。</li>
+<li>SerialDispatchQueueScheduler (串行 scheduler)：基于 GCD <code>dispatch_queue_t</code> 的封装。</li>
+<li>ConcurrentDispatchQueueScheduler (并行 scheduler)：基于 GCD <code>dispatch_queue_t</code> 的封装。</li>
+<li>OperationQueueScheduler (并行 scheduler)：基于 <code>NSOperationQueue</code> 的封装。</li>
+</ul>
+<h3 id="2-Operators-10"><a href="#2-Operators-10" class="headerlink" title="2. Operators[^10]"></a>2. Operators[^10]</h3><p><code>Operators</code> 算子、运算子、运算符、操作符：在数学里面有函数的概念，即：设 A、B 是非空的数集，如果按照某个确定的对应关系 f，使对于集合 A 中的任意一个数 x，在集合 B 中都有唯一确定的数 f(x) 和它对应，那么就称 f：A→B 为从集合 A 到集合 B 的一个函数。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">addOne</span>(<span class="keyword">_</span> <span class="params">a</span>: <span class="type">Int</span>)</span> -&gt; <span class="type">Int</span> &#123; a <span class="operator">+</span> <span class="number">1</span> &#125;</span><br><span class="line"><span class="keyword">let</span> <span class="type">A</span> <span class="operator">=</span> [<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>] <span class="comment">// 输入：集合 A &#123;2, 4, 6, 8&#125;</span></span><br><span class="line"><span class="keyword">let</span> <span class="type">B</span> <span class="operator">=</span> <span class="type">A</span>.map(addOne) <span class="comment">// 输出：集合 B &#123;3, 5, 7, 9&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>或者</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>].map &#123; <span class="variable">$0</span> <span class="operator">+</span> <span class="number">1</span> &#125; <span class="comment">// 输出：集合 &#123;3, 5, 7, 9&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>从上面可以看出数学的函数跟编程里面的函数，大致上是相同的「虽然有些地方不一样，比如副作用」。那么 Operator 是什么呢？<br>在 <code>1 + 1 = 2</code> 这个算式中运算符 <code>+</code> 就是 Operator。其实数学里面概念和计算机的概念是一样的，都有：算术运算符、赋值运算符、比较运算符、逻辑运算符、条件运算符。在 Rx 里面也有运算符的概念，大概可以分为 11 类，约 80 个操作符左右：</p>
+<ol>
+<li>Creating Observables：用于创建 Observable 的操作符集合，比如：<code>Create</code></li>
+<li>Transforming Observables：用于转换、变形 Observable 的操作符集合，比如：<code>Map</code></li>
+<li>Filtering Observables：用于过滤、筛选 Observable 的操作符集合，比如：<code>Filter</code></li>
+<li>Combining Observables：用于组合 Observable 的 Observable 的操作符集合，比如：<code>Zip</code></li>
+<li>Error Handling Operators：用于错误处理的 Observable 的操作符集合，比如：<code>Catch</code></li>
+<li>Observable Utility Operators：工具类 Observable 的操作符集合，比如：<code>Timeout</code></li>
+<li>Conditional and Boolean Operators：Observable 之间条件运算的操作符集合，比如：<code>Contains</code></li>
+<li>Mathematical and Aggregate Operators：对元素进行运算的操作符集合，比如：<code>Count</code></li>
+<li>Backpressure Operators：RxSwift 没有实现</li>
+<li>Connectable Observable Operators：需要特殊控制 Observable 的操作符集合，比如：<code>Publish</code></li>
+<li>Operators to Convert Observables：将 Observable 装成另一种类型或者数据结构的操作符集合，比如：<code>To</code></li>
+</ol>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.from([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]).map &#123; <span class="variable">$0</span> <span class="operator">+</span> <span class="number">1</span> &#125;.toArray().subscribe &#123; <span class="built_in">print</span>(<span class="variable">$0</span>) &#125;.dispose()</span><br><span class="line"><span class="comment">// 输出：success([3, 5, 7, 9])</span></span><br><span class="line"><span class="comment">// from、map、toArray、subscribe、dispose 都是操作符</span></span><br></pre></td></tr></table></figure>
+
+<p>Rx 每种特定语言都实现了一组操作符「各种语言实现的操作符总共大约 500 个」。尽管实现功能有很多重叠，但是也有一些因为编程语言或者平台特性做一些特殊的实现。同样的，每个操作符都会根据平台语言的特性做一些命名上的调整，可以更加贴近语言本身。好比乘法运算符，有的国家使用 <code>·</code> 表示，而有的国家使用 <code>×</code> 表示，和小数点 <code>.</code> 以示区分，而计算机编程语言大部分使用 <code>*</code> 表示，虽然写法不一样，但是意义都相同。</p>
+<h3 id="3-Observable-11"><a href="#3-Observable-11" class="headerlink" title="3. Observable[^11]"></a>3. Observable[^11]</h3><p>Rx 本身就是对观察者模式「Observer pattern」的扩充「扩展」，在 Apple 系统的平台，对观察者模式的一个实现就是 <code>KVO</code>，我们先看下 KVO 的操作：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 添加</span></span><br><span class="line">[<span class="keyword">self</span> addObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@&quot;viewModel.content&quot;</span> options:<span class="built_in">NSKeyValueObservingOptionInitial</span> | <span class="built_in">NSKeyValueObservingOptionNew</span> context:<span class="literal">NULL</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">// 2. 监听改变</span></span><br><span class="line">- (<span class="keyword">void</span>)observeValueForKeyPath:(<span class="built_in">NSString</span> *)keyPath ofObject:(<span class="keyword">id</span>)object change:(<span class="built_in">NSDictionary</span>&lt;<span class="built_in">NSKeyValueChangeKey</span>,<span class="keyword">id</span>&gt; *)change context:(<span class="keyword">void</span> *)context &#123;</span><br><span class="line">    <span class="keyword">if</span> ([keyPath isEqualToString:<span class="string">@&quot;viewModel.content&quot;</span>]) &#123;</span><br><span class="line">        [<span class="keyword">self</span>.contentLabel setValue:<span class="keyword">self</span>.viewModel.content forKey:<span class="string">@&quot;text&quot;</span>];</span><br><span class="line">    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        [<span class="keyword">super</span> observeValueForKeyPath:keyPath ofObject:object change:change context:context];</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 3. 移除</span></span><br><span class="line">[<span class="keyword">self</span> removeObserver:<span class="keyword">self</span> forKeyPath:<span class="string">@&quot;viewModel.content&quot;</span> context:<span class="literal">NULL</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在上面的代码中 viewModel 的 content 字段就是一个 Observable，只要 content 发生改变，那么 contentLabel 的 text 也就会发生响应的变化，我们可以简化下代码：</p>
+<figure class="highlight objc"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 1. 添加</span></span><br><span class="line">[<span class="keyword">self</span>.viewModel bind:<span class="string">@&quot;content&quot;</span> to:<span class="keyword">self</span>.contentLabel at:<span class="string">@&quot;text&quot;</span>];</span><br><span class="line"><span class="comment">// 2. 移除</span></span><br><span class="line">[<span class="keyword">self</span>.viewModel dispose];</span><br></pre></td></tr></table></figure>
+
+<p>上面 <code>bind</code> 函数的核心逻辑在<a href="https://">这里</a>。意思很明白，就是将 self.viewMode 对象的 content 字段与 self.contentLabel 对象的 text 属性绑定在一起。我们使用 RxSwift 重写下这个逻辑看：</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">viewModel.content.bind(to: contentLabel.rx.text).disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<p>可以看到使用 RxSwift 写的绑定逻辑与 OC 写的绑定函数逻辑基本一致，从这里可以看出：1. 在 RxSwift 里面对界面与数据的绑定底层实现使用的可能是 KVO，看过 RxSwift 源码之后发现也确实是这样的。而 viewModel 的 content 属性我们也是定义为 Observable 对象。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>&lt;<span class="type">Int</span>&gt;.from([<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>, <span class="number">8</span>]).map &#123; <span class="variable">$0</span> <span class="operator">+</span> <span class="number">1</span> &#125;.toArray().subscribe &#123; <span class="built_in">print</span>(<span class="variable">$0</span>) &#125;.dispose()</span><br><span class="line"><span class="comment">// 输出：success([3, 5, 7, 9])</span></span><br><span class="line"><span class="comment">// from、map、toArray、subscribe、dispose 都是操作符</span></span><br></pre></td></tr></table></figure>
+
+<p>我们回头看下这段代码：<code>Observable</code>、<code>from</code>、<code>map</code>、<code>toArray</code> 很好理解，上面已经说过了。那么 <code>subscribe</code> 和 <code>dispose</code> 又是做上面的呢？</p>
+<h2 id="四、订阅和发布"><a href="#四、订阅和发布" class="headerlink" title="四、订阅和发布"></a>四、订阅和发布</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">graph TB</span><br><span class="line">	subgraph 发布&#x2F;订阅模式</span><br><span class="line">	style C fill: #f9a, stroke: #333, stroke-width: 1px;</span><br><span class="line">	style E fill: #f9a, stroke: #333, stroke-width: 1px;</span><br><span class="line">	C(Publisher) --&gt;|&quot;Pushlish topic(event)&quot;| D((Topic&lt;br&gt;Event Channel));</span><br><span class="line">	E(Observer) --&gt;|Subscribe| D((Topic&lt;br&gt;Event Channel));</span><br><span class="line">	D((Topic&lt;br&gt;Event Channel)) --&gt;|Fire Event| E(Subscriber);</span><br><span class="line">	end</span><br><span class="line"></span><br><span class="line">	subgraph 观察者模式</span><br><span class="line">	style A fill: #f9a, stroke: #333, stroke-width: 1px;</span><br><span class="line">	style B fill: #f9a, stroke: #333, stroke-width: 1px;</span><br><span class="line">	B(Observer) --&gt;|Subscribe| A(Subject);</span><br><span class="line">	A(Subject) --&gt;|Fire Event| B(Observer);</span><br><span class="line">	end;</span><br></pre></td></tr></table></figure>
+
+<h3 id="1-观察者模式"><a href="#1-观察者模式" class="headerlink" title="1. 观察者模式"></a>1. 观察者模式</h3><p>观察者模式定义了对象间的一种一对多的依赖关系，当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并自动更新。观察者模式属于行为型模式，行为型模式关注的是对象之间的通讯，观察者模式就是观察者和被观察者之间的通讯。</p>
+<p>观察者模式有一个别名叫“发布-订阅模式”，或者说是“订阅-发布模式”，订阅者和订阅目标是联系在一起的，当订阅目标发生改变时，逐个通知订阅者。</p>
+<h3 id="2-发布-订阅模式"><a href="#2-发布-订阅模式" class="headerlink" title="2.发布/订阅模式"></a>2.发布/订阅模式</h3><p>其实 24 种基本的设计模式中并没有发布订阅模式，上面也说了，他只是观察者模式的一个别称。</p>
+<p>但是经过时间的沉淀，似乎他已经强大了起来，已经独立于观察者模式，成为另外一种不同的设计模式。<br>在现在的发布订阅模式中，称为发布者的消息发送者不会将消息直接发送给订阅者，这意味着发布者和订阅者不知道彼此的存在。在发布者和订阅者之间存在第三个组件，称为调度中心或事件通道，它维持着发布者和订阅者之间的联系，过滤所有发布者传入的消息并相应地分发它们给订阅者。</p>
+<p>可以看出，发布订阅模式相比观察者模式多了个事件通道，事件通道作为调度中心，管理事件的订阅和发布工作，彻底隔绝了订阅者和发布者的依赖关系。即订阅者在订阅事件的时候，只关注事件本身，而不关心谁会发布这个事件；发布者在发布事件的时候，只关注事件本身，而不关心谁订阅了这个事件。</p>
+<p>观察者模式有两个重要的角色，即目标和观察者。在目标和观察者之间是没有事件通道的。一方面，观察者要想订阅目标事件，由于没有事件通道，因此必须将自己添加到目标(Subject) 中进行管理；另一方面，目标在触发事件的时候，也无法将通知操作(notify) 委托给事件通道，因此只能亲自去通知所有的观察者。</p>
+<p>观察者模式和发布/订阅模式思路是一样的，做的都是通一件事情，即：当一个对象的状态发生改变时，所有依赖于它的对象都将得到通知，并自动更新。他们之间的区别在于：</p>
+<ul>
+<li>观察者模式中 <code>Subject</code> 和 <code>Observer</code> 之间是相互依赖的，两个角色。</li>
+<li>发布/订阅模式中 <code>Publisher</code> 和 <code>Subscriber</code> 之间是完全解耦合的，但是他们之间多了另外一个角色——经纪人 Broker，用于负责数据的调度或中转。</li>
+</ul>
+<h3 id="3-Rx-Subscribe"><a href="#3-Rx-Subscribe" class="headerlink" title="3. Rx Subscribe"></a>3. Rx <code>Subscribe</code></h3><p>从上面的例子我们可以知道，Rx 里面的概念包含有观察者模式或者发布/订阅模式，在这两种模式中都有一个共同的特点：监听对象的变化，并且有通知自己的能力，这种能力就需要订阅操作。观察者模式和发布/订阅模式里面称这种能力为 <code>Subscribe</code>，Rx 里面也延用这种写法。</p>
+<ul>
+<li>在观察者模式和发布/订阅模式中的 <code>Subject</code> 和 <code>Publisher</code> 角色在 RxSwift 中称为 <code>Observable</code>。</li>
+<li>在观察者模式和发布/订阅模式中的 <code>Observer</code> 和 <code>Subscriber</code> 角在 RxSwift 中称为 <code>Observer</code>。</li>
+<li>在观察者模式和发布/订阅模式中的 <code>Subscribe</code> 操作在 RxSwift 中称为 <code>Subscribe</code>。</li>
+</ul>
+<p><code>Subscribe</code> 操作符是连接 Observer 和 Observable 的桥梁，为了让 Observer 可以监听到 Observable 发出的元素 <code>onNext</code>、错误 <code>onError</code> 或完成 <code>onCompleted</code> 的通知，它首先就需要通过 <code>Subscribe</code> 操作符订阅 Observable。</p>
+<figure class="highlight swift"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">Observable</span>&lt;<span class="type">String</span>&gt;.create &#123; observer <span class="keyword">in</span></span><br><span class="line">	observer.onNext(<span class="string">&quot;🐶&quot;</span>)</span><br><span class="line">	observer.onNext(<span class="string">&quot;🐱&quot;</span>)</span><br><span class="line">	observer.onNext(<span class="string">&quot;🐭&quot;</span>)</span><br><span class="line">	observer.onCompleted()</span><br><span class="line">	<span class="keyword">return</span> <span class="type">Disposables</span>.create()</span><br><span class="line">&#125;.subscribe &#123; value <span class="keyword">in</span></span><br><span class="line">	<span class="built_in">print</span>(value)</span><br><span class="line">&#125; onError: &#123; error <span class="keyword">in</span></span><br><span class="line">	<span class="built_in">print</span>(error)</span><br><span class="line">&#125; onCompleted: &#123;</span><br><span class="line">	<span class="built_in">print</span>(<span class="string">&quot;Completed&quot;</span>)</span><br><span class="line">&#125;.disposed(by: disposeBag)</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>onNext</code> 当 Observable 发出元素时，他就会调用此方法，将元素作为参数发送出去。</li>
+<li><code>onError</code> 当 Observable 遇到错误时会调用此方法，并且不会再次调用 onNext、onCompleted 方法。</li>
+<li><code>onCompleted</code> 当 Observable 在执行的过程中没有发生任何错误，那么在最后一次执行 onNext 方法之后就会调用此方法。</li>
+</ul>
+<h3 id="5-“冷”「Cold」、”热”「Hot」Observable"><a href="#5-“冷”「Cold」、”热”「Hot」Observable" class="headerlink" title="5. “冷”「Cold」、”热”「Hot」Observable"></a>5. “冷”「Cold」、”热”「Hot」Observable</h3><ul>
+<li>一个 Observable 在没有订阅之前不会发送元素，就称之为“冷” Observable。</li>
+<li>一个 Observable 在没有订阅之前也会发送元素，就称之为“热” Observable。</li>
+</ul>
+<p>Rx 中并没有“冷”、“热” Observable 这种对象，但是会有“冷”、“热”状态的「概念」，他们都是通过操作符来转换，Rx 中有一类称为 “Connectable” 的 Observable，这样的 Observable 需要调用其 Connect 方法才会开始发出元素，无论是否有无 Observer 订阅它。</p>
+<ul>
+<li>普通 Observable 转 Connectable Observable：<code>Publish</code>、<code>Connect</code>、<code>multicast</code>、<code>replay</code>、<code>replayAll</code>、`share</li>
+<li>Connectable Observable 转 普通 Observable：<code>refCount</code></li>
+</ul>
+<p>Rx 中并没有“冷”、“热” Observable 这种对象，但是在使用 Rx 的过程中还是需要注意他们之间的区别。<code>Cold Observable</code> 我们可以观察到整个序列，<code>Hot Observable</code> 有可能是不完整的，且只能观察到 <code>Subscribe</code> 之后发出的元素，之前没有 <code>Subscribe</code> 的元素则直接丢失。</p>
+<h2 id="五、Subject-amp-Disposable"><a href="#五、Subject-amp-Disposable" class="headerlink" title="五、Subject &amp; Disposable"></a>五、Subject &amp; Disposable</h2><ul>
+<li>Subject 既是可 Observable 也是 Observer，大量用在 RxCocoa 中。</li>
+<li>Disposable 用于管理 Observable 的生命周期，如果一个 Observable 是 Disposable 的，那么可以被 DisposeBag 所管理。</li>
+</ul>
+<h2 id="链接"><a href="#链接" class="headerlink" title="链接"></a>链接</h2><p><a target="_blank" rel="noopener" href="http://reactivex.io/">ReactiveX</a><br><a target="_blank" rel="noopener" href="https://zh.wikipedia.org/wiki/MVVM">MVVM</a><br><a target="_blank" rel="noopener" href="https://github.com/ReactiveX/RxSwift">RxSwift</a><br><a target="_blank" rel="noopener" href="https://mcxiaoke.gitbooks.io/rxdocs/content/Intro.html">ReactiveX 文档中文翻译</a><br><a target="_blank" rel="noopener" href="http://community.rxswift.org/">RxSwift 社区</a></p>
+<h2 id="注解"><a href="#注解" class="headerlink" title="注解"></a>注解</h2><p>[^1]: Reactive Extensions 也叫 ReactiveX 或者 Rx<br>[^2]: LINQ 语言整合式查询，是一组以直接将查询功能整合至 C# 语言为基础之技术的名称<br>[^3]: Observable streams<br>[^4]: Observer pattern<br>[^5]: Iterator pattern<br>[^6]: Functional Programming<br>[^7]: Functional Reactive Programming 简称 FRP<br>[^8]: 软件工程名著《The Pragmatic Programmer》首先提出了这个原则。它的涵义是，系统的每一个功能都应该有唯一的实现。也就是说，如果多次遇到同样的问题，就应该抽象出一个共同的解决方法，不要重复开发同样的功能。这个原则有时也称为”一次且仅一次”原则（Once and Only Once）。<br>[^9]: Scheduler 调度器<br>[^10]: Operators 算子、操作符、运算符<br>[^11]: Observable 可观察对象</p>
+
+    </div>
+
+    
+    
+    
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/Objective-C/" rel="tag"># Objective-C</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2021/05/23/2021-05-23-nx-navigation-extension-using/" rel="prev" title="NXNavigationExtension 使用">
+      <i class="fa fa-chevron-left"></i> NXNavigationExtension 使用
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+    <div class="comments" id="valine-comments"></div>
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#RxSwift-%E4%BB%8B%E7%BB%8D"><span class="nav-number">1.</span> <span class="nav-text">RxSwift 介绍</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%80%E3%80%81Reactive-Extensions"><span class="nav-number">1.1.</span> <span class="nav-text">一、Reactive Extensions</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%AE%80%E4%BB%8B"><span class="nav-number">1.1.1.</span> <span class="nav-text">简介</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%8C%E3%80%81%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%AD%A6%E4%B9%A0-RxSwift%EF%BC%9F"><span class="nav-number">1.2.</span> <span class="nav-text">二、为什么要学习 RxSwift？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%89%E3%80%81Reactive-%E7%9B%B8%E5%85%B3%E5%BA%93%E5%AE%9E%E7%8E%B0%E9%80%89%E6%8B%A9"><span class="nav-number">1.3.</span> <span class="nav-text">三、Reactive 相关库实现选择</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Apple%E2%80%99s-Combine"><span class="nav-number">1.3.1.</span> <span class="nav-text">1. Apple’s Combine</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-ReactiveCocoa-3-x-%E4%BE%9D%E8%B5%96%E5%9B%BE"><span class="nav-number">1.3.2.</span> <span class="nav-text">2. ReactiveCocoa 3.x 依赖图</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-RxSwift-6-x-%E4%BE%9D%E8%B5%96%E5%9B%BE"><span class="nav-number">1.3.3.</span> <span class="nav-text">3. RxSwift 6.x 依赖图</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81KVO-amp-Binder"><span class="nav-number">1.4.</span> <span class="nav-text">四、KVO &amp; Binder</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-Scheduler-9"><span class="nav-number">1.4.1.</span> <span class="nav-text">1. Scheduler[^9]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-Operators-10"><span class="nav-number">1.4.2.</span> <span class="nav-text">2. Operators[^10]</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Observable-11"><span class="nav-number">1.4.3.</span> <span class="nav-text">3. Observable[^11]</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9B%9B%E3%80%81%E8%AE%A2%E9%98%85%E5%92%8C%E5%8F%91%E5%B8%83"><span class="nav-number">1.5.</span> <span class="nav-text">四、订阅和发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%A7%82%E5%AF%9F%E8%80%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.1.</span> <span class="nav-text">1. 观察者模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E5%8F%91%E5%B8%83-%E8%AE%A2%E9%98%85%E6%A8%A1%E5%BC%8F"><span class="nav-number">1.5.2.</span> <span class="nav-text">2.发布&#x2F;订阅模式</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-Rx-Subscribe"><span class="nav-number">1.5.3.</span> <span class="nav-text">3. Rx Subscribe</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#5-%E2%80%9C%E5%86%B7%E2%80%9D%E3%80%8CCold%E3%80%8D%E3%80%81%E2%80%9D%E7%83%AD%E2%80%9D%E3%80%8CHot%E3%80%8DObservable"><span class="nav-number">1.5.4.</span> <span class="nav-text">5. “冷”「Cold」、”热”「Hot」Observable</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BA%94%E3%80%81Subject-amp-Disposable"><span class="nav-number">1.6.</span> <span class="nav-text">五、Subject &amp; Disposable</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%93%BE%E6%8E%A5"><span class="nav-number">1.7.</span> <span class="nav-text">链接</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%B3%A8%E8%A7%A3"><span class="nav-number">1.8.</span> <span class="nav-text">注解</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="李丹(l1dan@hotmail.com)"
+      src="/images/avatar.jpeg">
+  <p class="site-author-name" itemprop="name">李丹(l1dan@hotmail.com)</p>
+  <div class="site-description" itemprop="description">帮助自己成长，如有不对还望斧正。</div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+        <span class="site-state-item-count">3</span>
+        <span class="site-state-item-name">分类</span>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">4</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/l1Dan" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;l1Dan" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:l1Dan@hotmail.com" title="E-Mail → mailto:l1Dan@hotmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 2016 – 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">李丹(l1dan@hotmail.com)</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://pisces.theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Pisces</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+
+<script>
+NexT.utils.loadComments(document.querySelector('#valine-comments'), () => {
+  NexT.utils.getScript('//unpkg.com/valine/dist/Valine.min.js', () => {
+    var GUEST = ['nick', 'mail', 'link'];
+    var guest = 'nick,mail,link';
+    guest = guest.split(',').filter(item => {
+      return GUEST.includes(item);
+    });
+    new Valine({
+      el         : '#valine-comments',
+      verify     : false,
+      notify     : false,
+      appId      : 'Of0luUUTAuJkW9h7x78FM3cm-MdYXbMMI',
+      appKey     : 'n9h1cNSngrgulr82NcWmlUTo',
+      placeholder: "Just go go",
+      avatar     : 'mm',
+      meta       : guest,
+      pageSize   : '10' || 10,
+      visitor    : true,
+      lang       : 'zh-cn' || 'zh-cn',
+      path       : location.pathname,
+      recordIP   : false,
+      serverURLs : ''
+    });
+  }, window.Valine);
+});
+</script>
+
+</body>
+</html>
