@@ -1,24 +1,19 @@
 ---
-layout: default\_layout
 title: RxSwift 介绍
 date: 2021-06-02 23:40:56
-tags: Objective-C
-categories: iOS
+tags: 
+    - Swift
+categories: 
+    - iOS
 ---
 
-# [RxSwift](https://github.com/ReactiveX/RxSwift) 介绍
-
-## 一、[Reactive Extensions](http://reactivex.io/)
-
-<img src="http://reactivex.io/assets/Rx_Logo_S.png" width="100px" />
-<img src="https://github.com/ReactiveX/RxSwift/raw/main/assets/RxSwift_Logo.png" width="100px" />
-<img src="https://avatars.githubusercontent.com/u/3422977?s=200&v=4" width="100px" />
+![][image-1]
 
 首先说明的是这并不是教大家如何使用 RxSwift API 的教程，更多的是要让大家理解 Rx 的思想，最后能够通过这套思想解决实际的问题。
 
 <!-- more -->
 
-### 简介
+## 一、简介
 
 RxSwift 顾名思义，它其实是 Swift 语言的一个框架「库」。要了解 RxSwift 就不得不提 Reactive Extensions[^1]。最初是 LINQ[2] 的一个扩展，由微软的架构师 Erik Meijer 领导的团队开发，在 2012 年 11 月开源。Rx 是一个编程模型，目标是提供一致的编程接口，帮助开发者更方便的处理异步数据流。而 RxSwift 正式基于 Reactive Extensions 标准的 Swift 版本实现。
 
@@ -81,31 +76,42 @@ Observable<String>.create {
 
 Combine 是 Apple 自己实现的 Reactive Streams 标准，只支持 iOS13 及以上系统，服务于 SwiftUI，不支持 UIKit。
 
-### 2. ReactiveCocoa 3.x 依赖图
+### 2. RxSwift vs ReactiveCocoa
+```plantuml
+@startuml
+rectangle "RxSwift vs ReactiveCocoa" {
+    package "ReactiveCocoa 3.x" {
+        rectangle ReactiveObjCBridge
+        rectangle ReactiveSwift
+        rectangle ReactiveCocoa
+
+        rectangle "ReactiveCocoa 2.x" {
+            rectangle ReactiveObjC
+            
+            ReactiveCocoa ...> ReactiveSwift
+            ReactiveObjCBridge ...> ReactiveSwift
+            ReactiveObjCBridge ...> ReactiveObjC
+        }
+    }
+
+    package "RxSwift 6.x" {
+        rectangle RxSwift
+        rectangle RxRelay
+        rectangle RxTest
+        rectangle RxBlocking
+        rectangle RxCocoa
+
+        RxRelay ..> RxSwift
+        RxTest ..> RxSwift
+        RxBlocking ..> RxSwift
+        RxCocoa ..> RxSwift
+        RxCocoa ..> RxRelay
+    }
+}
+@enduml
+```
 
 ReactiveCocoa 借用了大量 Rx 概念，是一套 “函数响应式编程” 的 iOS 库，自成一体。千万不要和 RxSwift 搞混了。
-
-```mermaid
-graph BT;
-	C(ReactiveObjCBridge) -.-> A(ReactiveSwift);
-	subgraph ReactiveCocoa 2.x
-	B(ReactiveObjC);
-    end
-	C(ReactiveObjCBridge) -.-> B(ReactiveObjC)
-	D(ReactiveCocoa) -.-> A(ReactiveSwift);
-```
-
-### 3. RxSwift 6.x 依赖图
-
-```mermaid
-graph BT;
-	B(RxCocoa) -.-> A(RxSwift);
-	C(RxRelay) -.-> A(RxSwift);
-	D(RxTest) -.-> A(RxSwift);
-	E(RxBlocking) -.-> A(RxSwift);
-	B(RxCocoa) -.-> C(RxRelay);
-```
-
 - `RxSwift`：RxSwift 的核心，主要提供是 ReactiveX 定义标准的实现。它没有其他依赖项。跨平台。
 - `RxRelay`：实现 PublishRelay、BehaviorRelay 和 ReplayRelay 三个类，他们都是 Subject 的子类。依赖 RxSwift。跨平台。
 - `RxTest` 和 `RxBlocking`：为基于 Rx 的系统提供测试功能。依赖 RxSwif。跨平台。
@@ -215,22 +221,39 @@ Observable<Int>.from([2, 4, 6, 8]).map { $0 + 1 }.toArray().subscribe { print($0
 
 ## 四、订阅和发布
 
-```mermaid
-graph TB
-	subgraph 发布/订阅模式
-	style C fill: #f9a, stroke: #333, stroke-width: 1px;
-	style E fill: #f9a, stroke: #333, stroke-width: 1px;
-	C(Publisher) -->|"Pushlish topic(event)"| D((Topic<br>Event Channel));
-	E(Observer) -->|Subscribe| D((Topic<br>Event Channel));
-	D((Topic<br>Event Channel)) -->|Fire Event| E(Subscriber);
-	end
+```plantuml
+@startuml
+rectangle "设计模式" {
 
-	subgraph 观察者模式
-	style A fill: #f9a, stroke: #333, stroke-width: 1px;
-	style B fill: #f9a, stroke: #333, stroke-width: 1px;
-	B(Observer) -->|Subscribe| A(Subject);
-	A(Subject) -->|Fire Event| B(Observer);
-	end;
+    frame "发布/订阅模式" {
+        rectangle Publisher
+        rectangle Subscriber1
+        rectangle Subscriber2
+
+        storage "Event Channel" as EC #aliceblue;line:blue;line.dotted;text:blue
+
+        Publisher --> EC : Publish Event
+
+        EC --> Subscriber1 : Fire Event
+        Subscriber1 ..|> EC : Subscribe
+
+        EC --> Subscriber2 : Fire Event
+        Subscriber2 ..|> EC : Subscribe
+    }
+
+    frame "观察者模式" {
+        rectangle Subject
+        rectangle Observer1
+        rectangle Observer2
+
+        Subject --> Observer1 : Fire Event
+        Observer1 ..|> Subject : Subscribe
+
+        Subject --> Observer2 : Fire Event
+        Observer2 ..|> Subject : Subscribe
+    }
+}
+@enduml
 ```
 
 ### 1. 观察者模式
@@ -304,9 +327,9 @@ Rx 中并没有“冷”、“热” Observable 这种对象，但是在使用 R
 
 ## 链接
 
+[RxSwift](https://github.com/ReactiveX/RxSwift)
 [ReactiveX](http://reactivex.io/)
 [MVVM](https://zh.wikipedia.org/wiki/MVVM)
-[RxSwift](https://github.com/ReactiveX/RxSwift)
 [ReactiveX 文档中文翻译](https://mcxiaoke.gitbooks.io/rxdocs/content/Intro.html)
 [RxSwift 社区](http://community.rxswift.org/)
 
@@ -323,3 +346,5 @@ Rx 中并没有“冷”、“热” Observable 这种对象，但是在使用 R
 [^9]: Scheduler 调度器
 [^10]: Operators 算子、操作符、运算符
 [^11]: Observable 可观察对象
+
+[image-1]: /images/2021/01-logos.png

@@ -1,9 +1,10 @@
 ---
-layout: default\_layout
 title: Objective-C 样式指南
-date: 2021-05-03 11:21:56
-tags: Objective-C
-categories: iOS
+date: 2021-04-03 11:21:56
+tags: 
+    - Objective-C
+categories: 
+    - iOS
 ---
 
 本样式指南概述了 iOS 团队使用的编码规范，使用 Objective-C 语言的开发人员都应按照本样式指南编写代码。

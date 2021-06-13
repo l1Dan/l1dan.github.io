@@ -1,14 +1,13 @@
 ---
-layout: default\_layout
 title: 利用Shell和Xcode做些有趣的事
 date: 2017-05-01 18:06:56
-tags: Shell
-categories: 杂谈
+tags: 
+    - Shell
+categories: 
+    - iOS
 ---
 
-![image1][image-1]
-
-Shell 在计算机里的作用是用来提供使用
+![][image-1]
 
 Xcode Run Script 里面的脚本代码的作用时机是在 Build 期间。在这期间我们到底可以做些什么呢？这就需要我们各自发挥自己的想象力了，这里就拿几个实用的例子看下效果。
 
@@ -20,17 +19,17 @@ Xcode Run Script 里面的脚本代码的作用时机是在 Build 期间。在�
 
 ### 添加一个运行脚本的选项
 
-![image2][image-2]
+![][image-2]
 
 添加完成之后就可以在里面写执行脚本的代码了，这里使用`bash`做演示，其他脚本语言也可以，包括 Swift。我们项目中修改百度地图 SDK 中的 Bundle 图片用的就是这种方式。这种方式的好处就是我们不需要关心第三方库是手动管理还是自动管理，唯一需要关注的就是有没有达到我们想要的效果。实际上我的目的达到了。
 
-![image3][image-3]
+![][image-3]
 
 ### 自动增加版本号
 
 自动增加项目中的版本号我们需要借助 `agvtool：Apple-generic versioning tool`，并做如下设置。
-![image4][image-4]
-![image5][image-5]
+![][image-4]
+![][image-5]
 
 最后我们在 Run Script 中添加一段命令就可以完成版本号自动增加的工作，以后也不需要手动修改版本号了。
 

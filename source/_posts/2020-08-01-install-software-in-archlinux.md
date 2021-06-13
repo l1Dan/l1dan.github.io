@@ -1,14 +1,14 @@
 ---
-layout: default\_layout
 title: Arch Linux 软件安装
 date: 2020-08-01 18:06:56
-tags: ArchLinux
-categories: 系统
+tags: 
+    - ArchLinux
+categories: 
+    - 杂谈
+description: Arch Linux 安装教程（二）
 ---
 
-Arch Linux 安装教程（一）
-
-<!-- more -->
+Arch Linux 安装教程（二）
 
 # 安装软件篇
 

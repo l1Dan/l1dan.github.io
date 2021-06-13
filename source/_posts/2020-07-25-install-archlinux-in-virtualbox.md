@@ -1,16 +1,16 @@
 ---
-layout: default\_layout
 title: VirtualBox 安装最新 Arch Linux
 date: 2020-07-25 10:06:56
-tags: ArchLinux
-categories: 系统
+tags: 
+   - ArchLinux
+categories: 
+   - 杂谈
+description: Arch Linux 安装教程（一）
 ---
 
 ## ![][image_0]
 
 Arch Linux 安装教程（一）
-
-<!-- more -->
 
 # 安装系统篇
 

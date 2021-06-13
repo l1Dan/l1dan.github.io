@@ -1,10 +1,13 @@
 ---
-layout: default\_layout
 title: NXNavigationExtension 使用
 date: 2021-05-23 23:21:56
-tags: Objective-C
-categories: iOS
+tags: 
+    - Objective-C
+categories: 
+    - iOS
 ---
+
+![](https://raw.githubusercontent.com/l1Dan/NXNavigationExtension/master/Snapshots/Slogan.png)
 
 🔥 NXNavigationExtension 是为 iOS 应用设计的一个简单、易用的导航栏处理框架。框架对现有代码入侵非常小，只需要简单的几个方法调用就可以满足大部分的应用场景。NXNavigationExtension 和 [示例程序代码](https://github.com/l1Dan/NXNavigationExtension/archive/master.zip) 都已经适配暗黑模式（Dark Mode）。
 
@@ -12,7 +15,7 @@ categories: iOS
 
 ## 🎉 预览
 
-![Preview](https://raw.githubusercontent.com/l1Dan/NXNavigationExtension/master/Snapshots/Preview.png)
+![](https://raw.githubusercontent.com/l1Dan/NXNavigationExtension/master/Snapshots/Preview.png)
 
 ## 🌟 开始使用
 
